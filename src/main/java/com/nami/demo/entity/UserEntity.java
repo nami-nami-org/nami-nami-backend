@@ -14,6 +14,8 @@ public class UserEntity {
     @Column(nullable = false, length = 150)
     private String nombre;
 
+
+
     @Column(nullable = false, length = 255, unique = true)
     private String email;
 
