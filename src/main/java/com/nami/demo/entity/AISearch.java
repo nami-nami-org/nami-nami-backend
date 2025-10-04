@@ -1,7 +1,6 @@
 package com.nami.demo.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,35 +13,37 @@ public class AISearch {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private UserEntity usuario;
+    private UserEntity user;
 
-    private String queryUsuario;
+    private String userQuery;
     private String intent;
-    @Column(columnDefinition = "TEXT")
-    private String parametrosExtraidos;
-    @Column(columnDefinition = "TEXT")
-    private String resultadosEncontrados;
-    private Integer totalResultados;
-    private Integer satisfaccion;
-    private Integer tiempoRespuestaMs;
-    private String sesionId;
-    private LocalDateTime createdAt;
 
+    @Column(columnDefinition = "TEXT")
+    private String extractedParameters;
+
+    @Column(columnDefinition = "TEXT")
+    private String foundResults;
+
+    private Integer totalResults;
+    private Integer satisfaction;
+    private Integer responseTimeMs;
+    private String sessionId;
+    private LocalDateTime createdAt;
 
     public AISearch() {}
 
-    public AISearch(Long id, UserEntity usuario, String queryUsuario, String intent, String parametrosExtraidos, String resultadosEncontrados,
-                    Integer totalResultados, Integer satisfaccion, Integer tiempoRespuestaMs, String sesionId, LocalDateTime createdAt) {
+    public AISearch(Long id, UserEntity user, String userQuery, String intent, String extractedParameters, String foundResults,
+                    Integer totalResults, Integer satisfaction, Integer responseTimeMs, String sessionId, LocalDateTime createdAt) {
         this.id = id;
-        this.usuario = usuario;
-        this.queryUsuario = queryUsuario;
+        this.user = user;
+        this.userQuery = userQuery;
         this.intent = intent;
-        this.parametrosExtraidos = parametrosExtraidos;
-        this.resultadosEncontrados = resultadosEncontrados;
-        this.totalResultados = totalResultados;
-        this.satisfaccion = satisfaccion;
-        this.tiempoRespuestaMs = tiempoRespuestaMs;
-        this.sesionId = sesionId;
+        this.extractedParameters = extractedParameters;
+        this.foundResults = foundResults;
+        this.totalResults = totalResults;
+        this.satisfaction = satisfaction;
+        this.responseTimeMs = responseTimeMs;
+        this.sessionId = sessionId;
         this.createdAt = createdAt;
     }
 
@@ -54,20 +55,20 @@ public class AISearch {
         this.id = id;
     }
 
-    public UserEntity getUsuario() {
-        return usuario;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUsuario(UserEntity usuario) {
-        this.usuario = usuario;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public String getQueryUsuario() {
-        return queryUsuario;
+    public String getUserQuery() {
+        return userQuery;
     }
 
-    public void setQueryUsuario(String queryUsuario) {
-        this.queryUsuario = queryUsuario;
+    public void setUserQuery(String userQuery) {
+        this.userQuery = userQuery;
     }
 
     public String getIntent() {
@@ -78,52 +79,52 @@ public class AISearch {
         this.intent = intent;
     }
 
-    public String getParametrosExtraidos() {
-        return parametrosExtraidos;
+    public String getExtractedParameters() {
+        return extractedParameters;
     }
 
-    public void setParametrosExtraidos(String parametrosExtraidos) {
-        this.parametrosExtraidos = parametrosExtraidos;
+    public void setExtractedParameters(String extractedParameters) {
+        this.extractedParameters = extractedParameters;
     }
 
-    public String getResultadosEncontrados() {
-        return resultadosEncontrados;
+    public String getFoundResults() {
+        return foundResults;
     }
 
-    public void setResultadosEncontrados(String resultadosEncontrados) {
-        this.resultadosEncontrados = resultadosEncontrados;
+    public void setFoundResults(String foundResults) {
+        this.foundResults = foundResults;
     }
 
-    public Integer getTotalResultados() {
-        return totalResultados;
+    public Integer getTotalResults() {
+        return totalResults;
     }
 
-    public void setTotalResultados(Integer totalResultados) {
-        this.totalResultados = totalResultados;
+    public void setTotalResults(Integer totalResults) {
+        this.totalResults = totalResults;
     }
 
-    public Integer getSatisfaccion() {
-        return satisfaccion;
+    public Integer getSatisfaction() {
+        return satisfaction;
     }
 
-    public void setSatisfaccion(Integer satisfaccion) {
-        this.satisfaccion = satisfaccion;
+    public void setSatisfaction(Integer satisfaction) {
+        this.satisfaction = satisfaction;
     }
 
-    public Integer getTiempoRespuestaMs() {
-        return tiempoRespuestaMs;
+    public Integer getResponseTimeMs() {
+        return responseTimeMs;
     }
 
-    public void setTiempoRespuestaMs(Integer tiempoRespuestaMs) {
-        this.tiempoRespuestaMs = tiempoRespuestaMs;
+    public void setResponseTimeMs(Integer responseTimeMs) {
+        this.responseTimeMs = responseTimeMs;
     }
 
-    public String getSesionId() {
-        return sesionId;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setSesionId(String sesionId) {
-        this.sesionId = sesionId;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public LocalDateTime getCreatedAt() {

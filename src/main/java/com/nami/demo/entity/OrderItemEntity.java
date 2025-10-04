@@ -1,7 +1,6 @@
 package com.nami.demo.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -15,32 +14,32 @@ public class OrderItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_pedido", nullable = false)
-    private OrderEntity orderEntity;
+    private OrderEntity order;
 
     @ManyToOne
     @JoinColumn(name = "id_platillo", nullable = false)
     private Dish dish;
 
-    private String nombrePlatillo;
-    private Integer cantidad;
-    private BigDecimal precioUnitario;
+    private String dishName;
+    private Integer quantity;
+    private BigDecimal unitPrice;
     private BigDecimal subtotal;
-    private String notas;
+    private String notes;
     private LocalDateTime createdAt;
 
     public OrderItemEntity() {
     }
 
-    public OrderItemEntity(Long id, OrderEntity orderEntity, Dish dish,
-                           String nombrePlatillo, Integer cantidad, BigDecimal precioUnitario, BigDecimal subtotal, String notas, LocalDateTime createdAt) {
+    public OrderItemEntity(Long id, OrderEntity order, Dish dish, String dishName, Integer quantity, BigDecimal unitPrice,
+                           BigDecimal subtotal, String notes, LocalDateTime createdAt) {
         this.id = id;
-        this.orderEntity = orderEntity;
+        this.order = order;
         this.dish = dish;
-        this.nombrePlatillo = nombrePlatillo;
-        this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
+        this.dishName = dishName;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
         this.subtotal = subtotal;
-        this.notas = notas;
+        this.notes = notes;
         this.createdAt = createdAt;
     }
 
@@ -52,12 +51,12 @@ public class OrderItemEntity {
         this.id = id;
     }
 
-    public OrderEntity getOrderEntity() {
-        return orderEntity;
+    public OrderEntity getOrder() {
+        return order;
     }
 
-    public void setOrderEntity(OrderEntity orderEntity) {
-        this.orderEntity = orderEntity;
+    public void setOrder(OrderEntity order) {
+        this.order = order;
     }
 
     public Dish getDish() {
@@ -68,28 +67,28 @@ public class OrderItemEntity {
         this.dish = dish;
     }
 
-    public String getNombrePlatillo() {
-        return nombrePlatillo;
+    public String getDishName() {
+        return dishName;
     }
 
-    public void setNombrePlatillo(String nombrePlatillo) {
-        this.nombrePlatillo = nombrePlatillo;
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
-    public BigDecimal getPrecioUnitario() {
-        return precioUnitario;
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setPrecioUnitario(BigDecimal precioUnitario) {
-        this.precioUnitario = precioUnitario;
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public BigDecimal getSubtotal() {
@@ -100,12 +99,12 @@ public class OrderItemEntity {
         this.subtotal = subtotal;
     }
 
-    public String getNotas() {
-        return notas;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setNotas(String notas) {
-        this.notas = notas;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public LocalDateTime getCreatedAt() {

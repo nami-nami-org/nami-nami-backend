@@ -1,7 +1,6 @@
 package com.nami.demo.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,14 +13,14 @@ public class Dish {
 
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)
-    private RestaurantEntity restaurante;
+    private RestaurantEntity restaurant;
 
-    private String nombre;
-    private String descripcion;
-    private Double precio;
-    private String imagenUrl;
-    private boolean disponible = true;
-    private int tiempoPreparacion = 15;
+    private String name;
+    private String description;
+    private Double price;
+    private String imageUrl;
+    private boolean available = true;
+    private int preparationTime = 15;
     private boolean popular = false;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -29,16 +28,16 @@ public class Dish {
     public Dish() {
     }
 
-    public Dish(Long id, RestaurantEntity restaurante, String nombre, String descripcion, Double precio, String imagenUrl,
-                boolean disponible, int tiempoPreparacion, boolean popular, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Dish(Long id, RestaurantEntity restaurant, String name, String description, Double price, String imageUrl,
+                boolean available, int preparationTime, boolean popular, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.restaurante = restaurante;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.imagenUrl = imagenUrl;
-        this.disponible = disponible;
-        this.tiempoPreparacion = tiempoPreparacion;
+        this.restaurant = restaurant;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.available = available;
+        this.preparationTime = preparationTime;
         this.popular = popular;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -52,60 +51,60 @@ public class Dish {
         this.id = id;
     }
 
-    public RestaurantEntity getRestaurante() {
-        return restaurante;
+    public RestaurantEntity getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurante(RestaurantEntity restaurante) {
-        this.restaurante = restaurante;
+    public void setRestaurant(RestaurantEntity restaurant) {
+        this.restaurant = restaurant;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Double getPrecio() {
-        return precio;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public String getImagenUrl() {
-        return imagenUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImagenUrl(String imagenUrl) {
-        this.imagenUrl = imagenUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public boolean isDisponible() {
-        return disponible;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
-    public int getTiempoPreparacion() {
-        return tiempoPreparacion;
+    public int getPreparationTime() {
+        return preparationTime;
     }
 
-    public void setTiempoPreparacion(int tiempoPreparacion) {
-        this.tiempoPreparacion = tiempoPreparacion;
+    public void setPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
     }
 
     public boolean isPopular() {

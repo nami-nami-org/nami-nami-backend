@@ -2,7 +2,6 @@ package com.nami.demo.entity;
 
 import com.nami.demo.enums.OrderStatus;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -15,53 +14,56 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String codigo;
+    private String code;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private UserEntity usuario;
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)
-    private RestaurantEntity restaurante;
+    private RestaurantEntity restaurant;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus estado = OrderStatus.BORRADOR;
+    private OrderStatus status = OrderStatus.BORRADOR;
 
-    private String direccionEntrega;
-    private String telefonoEntrega;
+    private String deliveryAddress;
+    private String deliveryPhone;
     private BigDecimal subtotal;
-    private BigDecimal costoEnvio;
+    private BigDecimal deliveryCost;
     private BigDecimal total;
-    private String metodoPago;
-    private String notas;
-    private LocalDateTime fechaEntregaEstimada;
-    private LocalDateTime fechaEntregaReal;
+    private String paymentMethod;
+    private String notes;
+    private LocalDateTime estimatedDeliveryDate;
+    private LocalDateTime actualDeliveryDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItemEntity> items;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(Long id, String codigo, UserEntity usuario, RestaurantEntity restaurante, OrderStatus estado, String direccionEntrega, String telefonoEntrega, BigDecimal subtotal, BigDecimal costoEnvio, BigDecimal total, String metodoPago, String notas,
-                       LocalDateTime fechaEntregaEstimada, LocalDateTime fechaEntregaReal, LocalDateTime createdAt, LocalDateTime updatedAt, Set<OrderItemEntity> items) {
+    public OrderEntity(Long id, String code, UserEntity user, RestaurantEntity restaurant, OrderStatus status,
+                       String deliveryAddress, String deliveryPhone, BigDecimal subtotal, BigDecimal deliveryCost,
+                       BigDecimal total, String paymentMethod, String notes, LocalDateTime estimatedDeliveryDate,
+                       LocalDateTime actualDeliveryDate, LocalDateTime createdAt, LocalDateTime updatedAt,
+                       Set<OrderItemEntity> items) {
         this.id = id;
-        this.codigo = codigo;
-        this.usuario = usuario;
-        this.restaurante = restaurante;
-        this.estado = estado;
-        this.direccionEntrega = direccionEntrega;
-        this.telefonoEntrega = telefonoEntrega;
+        this.code = code;
+        this.user = user;
+        this.restaurant = restaurant;
+        this.status = status;
+        this.deliveryAddress = deliveryAddress;
+        this.deliveryPhone = deliveryPhone;
         this.subtotal = subtotal;
-        this.costoEnvio = costoEnvio;
+        this.deliveryCost = deliveryCost;
         this.total = total;
-        this.metodoPago = metodoPago;
-        this.notas = notas;
-        this.fechaEntregaEstimada = fechaEntregaEstimada;
-        this.fechaEntregaReal = fechaEntregaReal;
+        this.paymentMethod = paymentMethod;
+        this.notes = notes;
+        this.estimatedDeliveryDate = estimatedDeliveryDate;
+        this.actualDeliveryDate = actualDeliveryDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.items = items;
@@ -75,52 +77,52 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public UserEntity getUsuario() {
-        return usuario;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUsuario(UserEntity usuario) {
-        this.usuario = usuario;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public RestaurantEntity getRestaurante() {
-        return restaurante;
+    public RestaurantEntity getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurante(RestaurantEntity restaurante) {
-        this.restaurante = restaurante;
+    public void setRestaurant(RestaurantEntity restaurant) {
+        this.restaurant = restaurant;
     }
 
-    public OrderStatus getEstado() {
-        return estado;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setEstado(OrderStatus estado) {
-        this.estado = estado;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
-    public String getDireccionEntrega() {
-        return direccionEntrega;
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public void setDireccionEntrega(String direccionEntrega) {
-        this.direccionEntrega = direccionEntrega;
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
-    public String getTelefonoEntrega() {
-        return telefonoEntrega;
+    public String getDeliveryPhone() {
+        return deliveryPhone;
     }
 
-    public void setTelefonoEntrega(String telefonoEntrega) {
-        this.telefonoEntrega = telefonoEntrega;
+    public void setDeliveryPhone(String deliveryPhone) {
+        this.deliveryPhone = deliveryPhone;
     }
 
     public BigDecimal getSubtotal() {
@@ -131,12 +133,12 @@ public class OrderEntity {
         this.subtotal = subtotal;
     }
 
-    public BigDecimal getCostoEnvio() {
-        return costoEnvio;
+    public BigDecimal getDeliveryCost() {
+        return deliveryCost;
     }
 
-    public void setCostoEnvio(BigDecimal costoEnvio) {
-        this.costoEnvio = costoEnvio;
+    public void setDeliveryCost(BigDecimal deliveryCost) {
+        this.deliveryCost = deliveryCost;
     }
 
     public BigDecimal getTotal() {
@@ -147,36 +149,36 @@ public class OrderEntity {
         this.total = total;
     }
 
-    public String getMetodoPago() {
-        return metodoPago;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public String getNotas() {
-        return notas;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setNotas(String notas) {
-        this.notas = notas;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
-    public LocalDateTime getFechaEntregaEstimada() {
-        return fechaEntregaEstimada;
+    public LocalDateTime getEstimatedDeliveryDate() {
+        return estimatedDeliveryDate;
     }
 
-    public void setFechaEntregaEstimada(LocalDateTime fechaEntregaEstimada) {
-        this.fechaEntregaEstimada = fechaEntregaEstimada;
+    public void setEstimatedDeliveryDate(LocalDateTime estimatedDeliveryDate) {
+        this.estimatedDeliveryDate = estimatedDeliveryDate;
     }
 
-    public LocalDateTime getFechaEntregaReal() {
-        return fechaEntregaReal;
+    public LocalDateTime getActualDeliveryDate() {
+        return actualDeliveryDate;
     }
 
-    public void setFechaEntregaReal(LocalDateTime fechaEntregaReal) {
-        this.fechaEntregaReal = fechaEntregaReal;
+    public void setActualDeliveryDate(LocalDateTime actualDeliveryDate) {
+        this.actualDeliveryDate = actualDeliveryDate;
     }
 
     public LocalDateTime getCreatedAt() {

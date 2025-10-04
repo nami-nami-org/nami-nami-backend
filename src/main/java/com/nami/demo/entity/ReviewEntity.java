@@ -1,7 +1,6 @@
 package com.nami.demo.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,36 +13,36 @@ public class ReviewEntity {
 
     @OneToOne
     @JoinColumn(name = "id_pedido", unique = true, nullable = false)
-    private OrderEntity orderEntity;
+    private OrderEntity order;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private UserEntity usuario;
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)
-    private RestaurantEntity restaurante;
+    private RestaurantEntity restaurant;
 
-    private Integer calificacion;
-    private String comentario;
-    private String respuestaRestaurante;
-    private LocalDateTime fechaRespuesta;
+    private Integer rating;
+    private String comment;
+    private String restaurantReply;
+    private LocalDateTime replyDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public ReviewEntity() {
     }
 
-    public ReviewEntity(Long id, OrderEntity orderEntity, UserEntity usuario, RestaurantEntity restaurante, Integer calificacion, String comentario,
-                        String respuestaRestaurante, LocalDateTime fechaRespuesta, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ReviewEntity(Long id, OrderEntity order, UserEntity user, RestaurantEntity restaurant, Integer rating, String comment,
+                        String restaurantReply, LocalDateTime replyDate, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.orderEntity = orderEntity;
-        this.usuario = usuario;
-        this.restaurante = restaurante;
-        this.calificacion = calificacion;
-        this.comentario = comentario;
-        this.respuestaRestaurante = respuestaRestaurante;
-        this.fechaRespuesta = fechaRespuesta;
+        this.order = order;
+        this.user = user;
+        this.restaurant = restaurant;
+        this.rating = rating;
+        this.comment = comment;
+        this.restaurantReply = restaurantReply;
+        this.replyDate = replyDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -56,60 +55,60 @@ public class ReviewEntity {
         this.id = id;
     }
 
-    public OrderEntity getOrderEntity() {
-        return orderEntity;
+    public OrderEntity getOrder() {
+        return order;
     }
 
-    public void setOrderEntity(OrderEntity orderEntity) {
-        this.orderEntity = orderEntity;
+    public void setOrder(OrderEntity order) {
+        this.order = order;
     }
 
-    public UserEntity getUsuario() {
-        return usuario;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUsuario(UserEntity usuario) {
-        this.usuario = usuario;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public RestaurantEntity getRestaurante() {
-        return restaurante;
+    public RestaurantEntity getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurante(RestaurantEntity restaurante) {
-        this.restaurante = restaurante;
+    public void setRestaurant(RestaurantEntity restaurant) {
+        this.restaurant = restaurant;
     }
 
-    public Integer getCalificacion() {
-        return calificacion;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setCalificacion(Integer calificacion) {
-        this.calificacion = calificacion;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getComment() {
+        return comment;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public String getRespuestaRestaurante() {
-        return respuestaRestaurante;
+    public String getRestaurantReply() {
+        return restaurantReply;
     }
 
-    public void setRespuestaRestaurante(String respuestaRestaurante) {
-        this.respuestaRestaurante = respuestaRestaurante;
+    public void setRestaurantReply(String restaurantReply) {
+        this.restaurantReply = restaurantReply;
     }
 
-    public LocalDateTime getFechaRespuesta() {
-        return fechaRespuesta;
+    public LocalDateTime getReplyDate() {
+        return replyDate;
     }
 
-    public void setFechaRespuesta(LocalDateTime fechaRespuesta) {
-        this.fechaRespuesta = fechaRespuesta;
+    public void setReplyDate(LocalDateTime replyDate) {
+        this.replyDate = replyDate;
     }
 
     public LocalDateTime getCreatedAt() {

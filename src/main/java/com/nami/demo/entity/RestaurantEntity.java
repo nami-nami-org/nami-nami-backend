@@ -1,42 +1,41 @@
 package com.nami.demo.entity;
 
-
 import com.nami.demo.enums.RestaurantStatus;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "restaurantes")
-public class RestaurantEntity{
+public class RestaurantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
     @JoinColumn(name = "id_usuario", unique = true, nullable = false)
-    private UserEntity usuario;
+    private UserEntity user;
 
     @Column(nullable = false, length = 200)
-    private String nombreComercial;
+    private String commercialName;
 
     @Column(columnDefinition = "TEXT")
-    private String descripcion;
+    private String description;
 
     @Column(nullable = false, length = 400)
-    private String direccion;
+    private String address;
 
     @Column(nullable = false, length = 20)
-    private String telefono;
+    private String phone;
 
-    private BigDecimal costoEnvio;
-    private Integer tiempoEntrega = 30;
+    private BigDecimal deliveryCost;
+    private Integer deliveryTime = 30;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RestaurantStatus estado = RestaurantStatus.CERRADO;
+    private RestaurantStatus status = RestaurantStatus.CERRADO;
 
-    private BigDecimal calificacionPromedio;
+    private BigDecimal averageRating;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -44,18 +43,19 @@ public class RestaurantEntity{
     public RestaurantEntity() {
     }
 
-    public RestaurantEntity(Long id, UserEntity usuario, String nombreComercial, String descripcion, String direccion, String telefono, BigDecimal costoEnvio,
-                            Integer tiempoEntrega, RestaurantStatus estado, BigDecimal calificacionPromedio, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public RestaurantEntity(Long id, UserEntity user, String commercialName, String description, String address, String phone,
+                            BigDecimal deliveryCost, Integer deliveryTime, RestaurantStatus status, BigDecimal averageRating,
+                            LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.usuario = usuario;
-        this.nombreComercial = nombreComercial;
-        this.descripcion = descripcion;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.costoEnvio = costoEnvio;
-        this.tiempoEntrega = tiempoEntrega;
-        this.estado = estado;
-        this.calificacionPromedio = calificacionPromedio;
+        this.user = user;
+        this.commercialName = commercialName;
+        this.description = description;
+        this.address = address;
+        this.phone = phone;
+        this.deliveryCost = deliveryCost;
+        this.deliveryTime = deliveryTime;
+        this.status = status;
+        this.averageRating = averageRating;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -68,76 +68,76 @@ public class RestaurantEntity{
         this.id = id;
     }
 
-    public UserEntity getUsuario() {
-        return usuario;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUsuario(UserEntity usuario) {
-        this.usuario = usuario;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public String getNombreComercial() {
-        return nombreComercial;
+    public String getCommercialName() {
+        return commercialName;
     }
 
-    public void setNombreComercial(String nombreComercial) {
-        this.nombreComercial = nombreComercial;
+    public void setCommercialName(String commercialName) {
+        this.commercialName = commercialName;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public BigDecimal getCostoEnvio() {
-        return costoEnvio;
+    public BigDecimal getDeliveryCost() {
+        return deliveryCost;
     }
 
-    public void setCostoEnvio(BigDecimal costoEnvio) {
-        this.costoEnvio = costoEnvio;
+    public void setDeliveryCost(BigDecimal deliveryCost) {
+        this.deliveryCost = deliveryCost;
     }
 
-    public Integer getTiempoEntrega() {
-        return tiempoEntrega;
+    public Integer getDeliveryTime() {
+        return deliveryTime;
     }
 
-    public void setTiempoEntrega(Integer tiempoEntrega) {
-        this.tiempoEntrega = tiempoEntrega;
+    public void setDeliveryTime(Integer deliveryTime) {
+        this.deliveryTime = deliveryTime;
     }
 
-    public RestaurantStatus getEstado() {
-        return estado;
+    public RestaurantStatus getStatus() {
+        return status;
     }
 
-    public void setEstado(RestaurantStatus estado) {
-        this.estado = estado;
+    public void setStatus(RestaurantStatus status) {
+        this.status = status;
     }
 
-    public BigDecimal getCalificacionPromedio() {
-        return calificacionPromedio;
+    public BigDecimal getAverageRating() {
+        return averageRating;
     }
 
-    public void setCalificacionPromedio(BigDecimal calificacionPromedio) {
-        this.calificacionPromedio = calificacionPromedio;
+    public void setAverageRating(BigDecimal averageRating) {
+        this.averageRating = averageRating;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -16,19 +16,19 @@ public class UserEntity {
     private Long id;
 
     @Column(nullable = false, length = 150)
-    private String nombre;
+    private String name;
 
     @Column(nullable = false, unique = true, length = 255)
     private String email;
 
     @Column(nullable = false, length = 255)
-    private String contraseña;
+    private String password;
 
     @Column(length = 20)
-    private String telefono;
+    private String phone;
 
     @Column(nullable = false)
-    private boolean activo = true;
+    private boolean active = true;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
@@ -40,27 +40,28 @@ public class UserEntity {
     private Set<UserRolEntity> roles;
 
     @OneToMany(mappedBy = "usuario")
-    private Set<OrderEntity> orderEntities;
+    private Set<OrderEntity> orders;
 
     @OneToMany(mappedBy = "usuario")
-    private Set<ReviewEntity> valoraciones;
+    private Set<ReviewEntity> reviews;
 
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String nombre, String email, String contraseña, String telefono, boolean activo, LocalDateTime createdAt,
-                      LocalDateTime updatedAt, Set<UserRolEntity> roles, Set<OrderEntity> orderEntities, Set<ReviewEntity> valoraciones) {
+    public UserEntity(Long id, String name, String email, String password, String phone, boolean active,
+                      LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRolEntity> roles,
+                      Set<OrderEntity> orders, Set<ReviewEntity> reviews) {
         this.id = id;
-        this.nombre = nombre;
+        this.name = name;
         this.email = email;
-        this.contraseña = contraseña;
-        this.telefono = telefono;
-        this.activo = activo;
+        this.password = password;
+        this.phone = phone;
+        this.active = active;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.roles = roles;
-        this.orderEntities = orderEntities;
-        this.valoraciones = valoraciones;
+        this.orders = orders;
+        this.reviews = reviews;
     }
 
     public Long getId() {
@@ -71,12 +72,12 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -87,28 +88,28 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -135,19 +136,19 @@ public class UserEntity {
         this.roles = roles;
     }
 
-    public Set<OrderEntity> getOrderEntities() {
-        return orderEntities;
+    public Set<OrderEntity> getOrders() {
+        return orders;
     }
 
-    public void setOrderEntities(Set<OrderEntity> orderEntities) {
-        this.orderEntities = orderEntities;
+    public void setOrders(Set<OrderEntity> orders) {
+        this.orders = orders;
     }
 
-    public Set<ReviewEntity> getValoraciones() {
-        return valoraciones;
+    public Set<ReviewEntity> getReviews() {
+        return reviews;
     }
 
-    public void setValoraciones(Set<ReviewEntity> valoraciones) {
-        this.valoraciones = valoraciones;
+    public void setReviews(Set<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 }

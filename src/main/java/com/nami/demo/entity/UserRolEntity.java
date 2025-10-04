@@ -1,8 +1,7 @@
 package com.nami.demo.entity;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "usuario_roles", indexes = {
@@ -18,14 +17,14 @@ public class UserRolEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private UserEntity usuario;
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "id_rol", nullable = false)
-    private RolEntity rol;
+    private RolEntity role;
 
     @Column(nullable = false)
-    private boolean activo = true;
+    private boolean active = true;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
@@ -33,11 +32,11 @@ public class UserRolEntity {
     public UserRolEntity() {
     }
 
-    public UserRolEntity(Long id, UserEntity usuario, RolEntity rol, boolean activo, LocalDateTime createdAt) {
+    public UserRolEntity(Long id, UserEntity user, RolEntity role, boolean active, LocalDateTime createdAt) {
         this.id = id;
-        this.usuario = usuario;
-        this.rol = rol;
-        this.activo = activo;
+        this.user = user;
+        this.role = role;
+        this.active = active;
         this.createdAt = createdAt;
     }
 
@@ -49,28 +48,28 @@ public class UserRolEntity {
         this.id = id;
     }
 
-    public UserEntity getUsuario() {
-        return usuario;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUsuario(UserEntity usuario) {
-        this.usuario = usuario;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public RolEntity getRol() {
-        return rol;
+    public RolEntity getRole() {
+        return role;
     }
 
-    public void setRol(RolEntity rol) {
-        this.rol = rol;
+    public void setRole(RolEntity role) {
+        this.role = role;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public LocalDateTime getCreatedAt() {
