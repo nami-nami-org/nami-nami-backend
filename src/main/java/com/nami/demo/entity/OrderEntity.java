@@ -40,7 +40,7 @@ public class OrderEntity {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL)
     private Set<OrderItemEntity> items;
 
     public OrderEntity() {

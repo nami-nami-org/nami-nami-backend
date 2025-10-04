@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+@Entity
+@Table(name = "restaurantes")
 public class RestaurantEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
