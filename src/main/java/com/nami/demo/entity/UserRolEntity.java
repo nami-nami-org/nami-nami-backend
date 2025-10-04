@@ -4,64 +4,80 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
+@Table(name = "usuario_roles", indexes = {
+        @Index(name = "idx_usuario_roles_usuario", columnList = "id_usuario"),
+        @Index(name = "idx_usuario_roles_rol", columnList = "id_rol"),
+        @Index(name = "idx_usuario_roles_unique", columnList = "id_usuario,id_rol", unique = true)
+})
 public class UserRolEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private User usuario;
+    private UserEntity usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_rol", nullable = false)
     private RolEntity rol;
 
     @Column(nullable = false)
-    private Boolean activo = true;
+    private boolean activo = true;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
-    // getters y setters
+    public UserRolEntity() {
+    }
 
-    @Entity
-    @Table(name = "usuarios", indexes = {
-        @Index(name = "idx_usuarios_email", columnList = "email", unique = true),
-        @Index(name = "idx_usuarios_activo", columnList = "activo")
-    })
-    public static class UserEntity {
+    public UserRolEntity(Long id, UserEntity usuario, RolEntity rol, boolean activo, LocalDateTime createdAt) {
+        this.id = id;
+        this.usuario = usuario;
+        this.rol = rol;
+        this.activo = activo;
+        this.createdAt = createdAt;
+    }
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
+    public Long getId() {
+        return id;
+    }
 
-        @Column(nullable = false, length = 150)
-        private String nombre;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        @Column(nullable = false, length = 255, unique = true)
-        private String email;
+    public UserEntity getUsuario() {
+        return usuario;
+    }
 
-        @Column(nullable = false, length = 255)
-        private String contraseña;
+    public void setUsuario(UserEntity usuario) {
+        this.usuario = usuario;
+    }
 
-        @Column(length = 20)
-        private String telefono;
+    public RolEntity getRol() {
+        return rol;
+    }
 
-        @Column(nullable = false)
-        private Boolean activo = true;
+    public void setRol(RolEntity rol) {
+        this.rol = rol;
+    }
 
-        @Column(name = "created_at", nullable = false)
-        private LocalDateTime createdAt = LocalDateTime.now();
+    public boolean isActivo() {
+        return activo;
+    }
 
-        @Column(name = "updated_at", nullable = false)
-        private LocalDateTime updatedAt = LocalDateTime.now();
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
 
-        @OneToMany(mappedBy = "usuario")
-        private List<UsuarioRol> roles;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-        @OneToOne(mappedBy = "propietario")
-        private Restaurante restaurante;
-
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

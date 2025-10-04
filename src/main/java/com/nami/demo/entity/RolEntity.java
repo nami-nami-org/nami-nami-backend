@@ -9,19 +9,59 @@ import java.time.LocalDateTime;
         @Index(name = "idx_roles_nombre", columnList = "nombre", unique = true)
 })
 public class RolEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, length = 50)
     private String nombre;
 
     @Column(nullable = false)
-    private Boolean activo = true;
+    private boolean activo = true;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "rol")
-    private List<UsuarioRol> usuarios;
+    public RolEntity() {
+    }
+
+    public RolEntity(Long id, String nombre, boolean activo, LocalDateTime createdAt) {
+        this.id = id;
+        this.nombre = nombre;
+        this.activo = activo;
+        this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }
