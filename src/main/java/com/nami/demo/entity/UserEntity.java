@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "usuarios", indexes = {
         @Index(name = "idx_usuarios_email", columnList = "email", unique = true),
-        @Index(name = "idx_usuarios_activo", columnList = "activo")
+        @Index(name = "idx_usuarios_activo", columnList = "active")
 })
 public class UserEntity {
     @Id
@@ -36,13 +36,13 @@ public class UserEntity {
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "user")
     private Set<UserRolEntity> roles;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "user")
     private Set<OrderEntity> orders;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "user")
     private Set<ReviewEntity> reviews;
 
     public UserEntity() {

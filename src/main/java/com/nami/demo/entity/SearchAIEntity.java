@@ -2,11 +2,9 @@ package com.nami.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "busquedas_ia")
-public class AISearch {
-
+public class SearchAIEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,30 +13,37 @@ public class AISearch {
     @JoinColumn(name = "id_usuario")
     private UserEntity user;
 
+    @Column(nullable = false)
     private String userQuery;
+
     private String intent;
 
-    @Column(columnDefinition = "TEXT")
-    private String extractedParameters;
+    private String extractedParams;
 
-    @Column(columnDefinition = "TEXT")
     private String foundResults;
 
-    private Integer totalResults;
-    private Integer satisfaction;
-    private Integer responseTimeMs;
+    private int totalResults = 0;
+
+    private int satisfaction;
+
+    private int responseTimeMs;
+
     private String sessionId;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public AISearch() {}
+    public SearchAIEntity() {
+    }
 
-    public AISearch(Long id, UserEntity user, String userQuery, String intent, String extractedParameters, String foundResults,
-                    Integer totalResults, Integer satisfaction, Integer responseTimeMs, String sessionId, LocalDateTime createdAt) {
+    public SearchAIEntity(Long id, UserEntity user, String userQuery, String intent, String extractedParams,
+                          String foundResults, int totalResults, int satisfaction, int responseTimeMs, String sessionId,
+                          LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.userQuery = userQuery;
         this.intent = intent;
-        this.extractedParameters = extractedParameters;
+        this.extractedParams = extractedParams;
         this.foundResults = foundResults;
         this.totalResults = totalResults;
         this.satisfaction = satisfaction;
@@ -79,12 +84,12 @@ public class AISearch {
         this.intent = intent;
     }
 
-    public String getExtractedParameters() {
-        return extractedParameters;
+    public String getExtractedParams() {
+        return extractedParams;
     }
 
-    public void setExtractedParameters(String extractedParameters) {
-        this.extractedParameters = extractedParameters;
+    public void setExtractedParams(String extractedParams) {
+        this.extractedParams = extractedParams;
     }
 
     public String getFoundResults() {
@@ -95,27 +100,27 @@ public class AISearch {
         this.foundResults = foundResults;
     }
 
-    public Integer getTotalResults() {
+    public int getTotalResults() {
         return totalResults;
     }
 
-    public void setTotalResults(Integer totalResults) {
+    public void setTotalResults(int totalResults) {
         this.totalResults = totalResults;
     }
 
-    public Integer getSatisfaction() {
+    public int getSatisfaction() {
         return satisfaction;
     }
 
-    public void setSatisfaction(Integer satisfaction) {
+    public void setSatisfaction(int satisfaction) {
         this.satisfaction = satisfaction;
     }
 
-    public Integer getResponseTimeMs() {
+    public int getResponseTimeMs() {
         return responseTimeMs;
     }
 
-    public void setResponseTimeMs(Integer responseTimeMs) {
+    public void setResponseTimeMs(int responseTimeMs) {
         this.responseTimeMs = responseTimeMs;
     }
 

@@ -1,36 +1,37 @@
 package com.nami.demo.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "valoraciones")
-public class ReviewEntity {
-
+@Table(name = "valoraciones_platillo")
+public class DishRatingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @ManyToOne @JoinColumn(name = "id_usuario", nullable = false)
     private UserEntity user;
 
-    @ManyToOne
-    @JoinColumn(name = "id_restaurante", nullable = false)
-    private RestaurantEntity restaurant;
+    @ManyToOne @JoinColumn(name = "id_platillo", nullable = false)
+    private DishEntity dish;
 
-    private Integer rating;
+    @Column(nullable = false)
+    private int rating;
+
     private String comment;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public ReviewEntity() {
+    public DishRatingEntity() {
     }
 
-    public ReviewEntity(Long id, UserEntity user, RestaurantEntity restaurant, Integer rating, String comment,
-                        LocalDateTime createdAt) {
+    public DishRatingEntity(Long id, UserEntity user, DishEntity dish, int rating, String comment, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
-        this.restaurant = restaurant;
+        this.dish = dish;
         this.rating = rating;
         this.comment = comment;
         this.createdAt = createdAt;
@@ -52,19 +53,19 @@ public class ReviewEntity {
         this.user = user;
     }
 
-    public RestaurantEntity getRestaurant() {
-        return restaurant;
+    public DishEntity getDish() {
+        return dish;
     }
 
-    public void setRestaurant(RestaurantEntity restaurant) {
-        this.restaurant = restaurant;
+    public void setDish(DishEntity dish) {
+        this.dish = dish;
     }
 
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

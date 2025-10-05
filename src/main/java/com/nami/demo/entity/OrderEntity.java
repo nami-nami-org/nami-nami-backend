@@ -9,11 +9,11 @@ import java.util.Set;
 @Entity
 @Table(name = "pedidos")
 public class OrderEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 12, nullable = false)
     private String code;
 
     @ManyToOne
@@ -25,31 +25,31 @@ public class OrderEntity {
     private RestaurantEntity restaurant;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.BORRADOR;
+    @Column(nullable = false)
+    private OrderStatus status = OrderStatus.PREPARANDO;
 
+    @Column(nullable = false)
     private String deliveryAddress;
-    private String deliveryPhone;
-    private BigDecimal subtotal;
-    private BigDecimal deliveryCost;
-    private BigDecimal total;
-    private String paymentMethod;
-    private String notes;
-    private LocalDateTime estimatedDeliveryDate;
-    private LocalDateTime actualDeliveryDate;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<OrderItemEntity> items;
+    @Column(nullable = false, length = 20)
+    private String deliveryPhone;
+
+    @Column(nullable = false)
+    private double subtotal;
+
+    private double shippingCost = 0.0;
+
+    @Column(nullable = false)
+    private double total;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(Long id, String code, UserEntity user, RestaurantEntity restaurant, OrderStatus status,
-                       String deliveryAddress, String deliveryPhone, BigDecimal subtotal, BigDecimal deliveryCost,
-                       BigDecimal total, String paymentMethod, String notes, LocalDateTime estimatedDeliveryDate,
-                       LocalDateTime actualDeliveryDate, LocalDateTime createdAt, LocalDateTime updatedAt,
-                       Set<OrderItemEntity> items) {
+    public OrderEntity(Long id, String code, UserEntity user, RestaurantEntity restaurant, OrderStatus status, String deliveryAddress,
+                       String deliveryPhone, double subtotal, double shippingCost, double total, LocalDateTime createdAt) {
         this.id = id;
         this.code = code;
         this.user = user;
@@ -58,15 +58,9 @@ public class OrderEntity {
         this.deliveryAddress = deliveryAddress;
         this.deliveryPhone = deliveryPhone;
         this.subtotal = subtotal;
-        this.deliveryCost = deliveryCost;
+        this.shippingCost = shippingCost;
         this.total = total;
-        this.paymentMethod = paymentMethod;
-        this.notes = notes;
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
-        this.actualDeliveryDate = actualDeliveryDate;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.items = items;
     }
 
     public Long getId() {
@@ -125,60 +119,28 @@ public class OrderEntity {
         this.deliveryPhone = deliveryPhone;
     }
 
-    public BigDecimal getSubtotal() {
+    public double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(BigDecimal subtotal) {
+    public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
 
-    public BigDecimal getDeliveryCost() {
-        return deliveryCost;
+    public double getShippingCost() {
+        return shippingCost;
     }
 
-    public void setDeliveryCost(BigDecimal deliveryCost) {
-        this.deliveryCost = deliveryCost;
+    public void setShippingCost(double shippingCost) {
+        this.shippingCost = shippingCost;
     }
 
-    public BigDecimal getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(double total) {
         this.total = total;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public LocalDateTime getEstimatedDeliveryDate() {
-        return estimatedDeliveryDate;
-    }
-
-    public void setEstimatedDeliveryDate(LocalDateTime estimatedDeliveryDate) {
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
-    }
-
-    public LocalDateTime getActualDeliveryDate() {
-        return actualDeliveryDate;
-    }
-
-    public void setActualDeliveryDate(LocalDateTime actualDeliveryDate) {
-        this.actualDeliveryDate = actualDeliveryDate;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -187,21 +149,5 @@ public class OrderEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Set<OrderItemEntity> getItems() {
-        return items;
-    }
-
-    public void setItems(Set<OrderItemEntity> items) {
-        this.items = items;
     }
 }

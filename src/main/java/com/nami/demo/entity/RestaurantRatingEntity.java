@@ -1,12 +1,12 @@
 package com.nami.demo.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "valoraciones")
-public class ReviewEntity {
-
+public class RestaurantRatingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,19 +15,22 @@ public class ReviewEntity {
     @JoinColumn(name = "id_usuario", nullable = false)
     private UserEntity user;
 
-    @ManyToOne
-    @JoinColumn(name = "id_restaurante", nullable = false)
+    @ManyToOne @JoinColumn(name = "id_restaurante", nullable = false)
     private RestaurantEntity restaurant;
 
-    private Integer rating;
+    @Column(nullable = false)
+    private int rating;
+
     private String comment;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public ReviewEntity() {
+    public RestaurantRatingEntity() {
     }
 
-    public ReviewEntity(Long id, UserEntity user, RestaurantEntity restaurant, Integer rating, String comment,
-                        LocalDateTime createdAt) {
+    public RestaurantRatingEntity(Long id, UserEntity user, RestaurantEntity restaurant, int rating,
+                                  String comment, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.restaurant = restaurant;
@@ -60,11 +63,11 @@ public class ReviewEntity {
         this.restaurant = restaurant;
     }
 
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

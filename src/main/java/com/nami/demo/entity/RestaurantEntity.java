@@ -4,6 +4,7 @@ import com.nami.demo.enums.RestaurantStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "restaurantes")
@@ -22,20 +23,23 @@ public class RestaurantEntity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false, length = 400)
-    private String address;
-
     @Column(nullable = false, length = 20)
     private String phone;
-
-    private BigDecimal deliveryCost;
-    private Integer deliveryTime = 30;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RestaurantStatus status = RestaurantStatus.CERRADO;
 
+    @OneToMany(mappedBy = "restaurant")
+    private Set<LocalEntity> locals;
+
+    @OneToMany(mappedBy = "restaurant")
+    private Set<DishEntity> dishes;
+
     private BigDecimal averageRating;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RestaurantCategoryLinkEntity> categoryLinks;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -43,18 +47,18 @@ public class RestaurantEntity {
     public RestaurantEntity() {
     }
 
-    public RestaurantEntity(Long id, UserEntity user, String commercialName, String description, String address, String phone,
-                            BigDecimal deliveryCost, Integer deliveryTime, RestaurantStatus status, BigDecimal averageRating,
+    public RestaurantEntity(Long id, UserEntity user, String commercialName, String description,
+                            String phone, RestaurantStatus status,
+                            Set<LocalEntity> locals, Set<DishEntity> dishes, BigDecimal averageRating,
                             LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.user = user;
         this.commercialName = commercialName;
         this.description = description;
-        this.address = address;
         this.phone = phone;
-        this.deliveryCost = deliveryCost;
-        this.deliveryTime = deliveryTime;
         this.status = status;
+        this.locals = locals;
+        this.dishes = dishes;
         this.averageRating = averageRating;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -92,36 +96,12 @@ public class RestaurantEntity {
         this.description = description;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public BigDecimal getDeliveryCost() {
-        return deliveryCost;
-    }
-
-    public void setDeliveryCost(BigDecimal deliveryCost) {
-        this.deliveryCost = deliveryCost;
-    }
-
-    public Integer getDeliveryTime() {
-        return deliveryTime;
-    }
-
-    public void setDeliveryTime(Integer deliveryTime) {
-        this.deliveryTime = deliveryTime;
     }
 
     public RestaurantStatus getStatus() {

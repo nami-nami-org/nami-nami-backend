@@ -2,10 +2,11 @@ package com.nami.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles", indexes = {
-        @Index(name = "idx_roles_nombre", columnList = "nombre", unique = true)
+        @Index(name = "idx_roles_nombre", columnList = "name", unique = true)
 })
 public class RolEntity {
 
@@ -22,14 +23,18 @@ public class RolEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    @OneToMany(mappedBy = "role")
+    private Set<UserRolEntity> userRoles;
+
     public RolEntity() {
     }
 
-    public RolEntity(Long id, String name, boolean active, LocalDateTime createdAt) {
-        this.id = id;
-        this.name = name;
-        this.active = active;
+    public RolEntity(Set<UserRolEntity> userRoles, LocalDateTime createdAt, boolean active, String name, Long id) {
+        this.userRoles = userRoles;
         this.createdAt = createdAt;
+        this.active = active;
+        this.name = name;
+        this.id = id;
     }
 
     public Long getId() {
@@ -62,5 +67,13 @@ public class RolEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Set<UserRolEntity> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRolEntity> userRoles) {
+        this.userRoles = userRoles;
     }
 }
