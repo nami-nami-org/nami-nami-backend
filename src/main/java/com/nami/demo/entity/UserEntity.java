@@ -39,18 +39,21 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private Set<UserRolEntity> roles;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "user")
     private Set<OrderEntity> orders;
 
     @OneToMany(mappedBy = "user")
     private Set<ReviewEntity> reviews;
+=======
+
+>>>>>>> 861f34a (refactor: :fire: refactor auth code)
 
     public UserEntity() {
     }
 
     public UserEntity(Long id, String name, String email, String password, String phone, boolean active,
-                      LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRolEntity> roles,
-                      Set<OrderEntity> orders, Set<ReviewEntity> reviews) {
+                      LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRolEntity> roles) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -60,8 +63,6 @@ public class UserEntity {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.roles = roles;
-        this.orders = orders;
-        this.reviews = reviews;
     }
 
     public Long getId() {
@@ -134,21 +135,5 @@ public class UserEntity {
 
     public void setRoles(Set<UserRolEntity> roles) {
         this.roles = roles;
-    }
-
-    public Set<OrderEntity> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<OrderEntity> orders) {
-        this.orders = orders;
-    }
-
-    public Set<ReviewEntity> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(Set<ReviewEntity> reviews) {
-        this.reviews = reviews;
     }
 }
