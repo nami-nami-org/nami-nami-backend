@@ -1,5 +1,6 @@
 package com.nami.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -17,10 +18,12 @@ public class UserRolEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
+    @JsonBackReference
     private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "id_rol", nullable = false)
+    @JsonBackReference
     private RolEntity role;
 
     @Column(nullable = false)
@@ -28,6 +31,11 @@ public class UserRolEntity {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public UserRolEntity() {
     }

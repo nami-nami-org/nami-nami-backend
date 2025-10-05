@@ -1,7 +1,9 @@
 package com.nami.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,8 +25,9 @@ public class RolEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "role")
-    private Set<UserRolEntity> userRoles;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<UserRolEntity> userRoles = new HashSet<>();
 
     public RolEntity() {
     }

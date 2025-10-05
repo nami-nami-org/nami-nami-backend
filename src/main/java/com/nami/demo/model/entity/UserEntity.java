@@ -1,8 +1,10 @@
 package com.nami.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -30,23 +32,35 @@ public class UserEntity {
     @Column(nullable = false)
     private boolean active = true;
 
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserRolEntity> roles;
-
-    @OneToMany(mappedBy = "user")
-    private Set<OrderEntity> orders;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<UserRolEntity> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<ReviewEntity> reviews;
 
-    public UserEntity() {
+    @OneToMany(mappedBy = "user")
+    private Set<OrderEntity> orders;
+
+    @PrePersist
+    protected void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
     }
+    
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public UserEntity() {}
 
     public UserEntity(Long id, String name, String email, String password, String phone, boolean active,
                       LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRolEntity> roles) {

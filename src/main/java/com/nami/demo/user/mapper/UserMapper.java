@@ -22,7 +22,6 @@ public class UserMapper {
         userEntity.setUpdatedAt(LocalDateTime.now());
         userEntity.setRoles(new HashSet<>());
         return userEntity;
-
     }
 
     public UserResponseDto toDto(UserEntity userEntity) {
@@ -31,5 +30,4 @@ public class UserMapper {
                 userEntity.getPassword()
         );
     }
-
 }
