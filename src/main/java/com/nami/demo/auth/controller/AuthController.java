@@ -1,6 +1,5 @@
 package com.nami.demo.auth.controller;
 
-import com.nami.demo.model.entity.UserEntity;
 import com.nami.demo.user.dto.request.CreateUserRequestDto;
 import com.nami.demo.user.dto.response.UserResponseDto;
 import com.nami.demo.user.service.UserService;
@@ -19,18 +18,6 @@ public class AuthController {
     public AuthController(UserService userService) {
         this.userService = userService;
     }
-
-    @Operation(
-            summary = "Crear un nuevo usuario",
-            description = "Registra un nuevo usuario en el sistema",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Usuario creado exitosamente",
-                            content = @Content(schema = @Schema(implementation = UserResponseDto.class))
-                    )
-            }
-    )
 
     @PostMapping
     public ResponseEntity<UserResponseDto> createNewUser(@RequestBody CreateUserRequestDto request) {

@@ -7,5 +7,5 @@
 - https://dbdiagram.io/d/Copy-of-NAMI-NAMI-68e17278d2b621e422471d8e
 
 # De momento
-- REgresar los restaurantes mas valorados
+- Regresar los restaurantes mas valorados
 - Tiempo estiamdo de preparacion en la tabla platillos
