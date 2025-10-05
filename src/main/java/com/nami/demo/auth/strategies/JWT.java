@@ -1,6 +1,6 @@
 package com.nami.demo.auth.strategies;
 
-import com.nami.demo.entity.UserEntity;
+import com.nami.demo.model.entity.UserEntity;
 import io.jsonwebtoken.Jwts;
 
 import javax.crypto.SecretKey;
