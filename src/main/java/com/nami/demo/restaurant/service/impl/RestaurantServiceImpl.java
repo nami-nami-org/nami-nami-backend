@@ -25,5 +25,4 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantEntity = restaurantRepository.save(restaurantEntity);
         return restaurantMapper.toDto(restaurantEntity);
     }
-
 }

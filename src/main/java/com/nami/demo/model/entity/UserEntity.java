@@ -1,6 +1,8 @@
 package com.nami.demo.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.nami.demo.model.enums.OrderStatus;
+import com.nami.demo.model.enums.UserRol;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -38,9 +40,14 @@ public class UserEntity {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<UserRolEntity> roles = new HashSet<>();
+    @ElementCollection(fetch = FetchType.EAGER, targetClass = UserRol.class)
+    @CollectionTable(
+            name = "usuario_roles",
+            joinColumns = @JoinColumn(name = "usuario_id")
+    )
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol", nullable = false)
+    private Set<UserRol> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<ReviewEntity> reviews;
@@ -53,6 +60,9 @@ public class UserEntity {
         LocalDateTime now = LocalDateTime.now();
         this.createdAt = now;
         this.updatedAt = now;
+
+        this.roles = new HashSet<UserRol>();
+        this.roles.add(UserRol.CLIENTE);
     }
     
     @PreUpdate
@@ -62,8 +72,7 @@ public class UserEntity {
 
     public UserEntity() {}
 
-    public UserEntity(Long id, String name, String email, String password, String phone, boolean active,
-                      LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRolEntity> roles) {
+    public UserEntity(Long id, String name, String email, String password, String phone, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRol> roles, Set<ReviewEntity> reviews, Set<OrderEntity> orders) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -73,6 +82,8 @@ public class UserEntity {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.roles = roles;
+        this.reviews = reviews;
+        this.orders = orders;
     }
 
     public Long getId() {
@@ -139,11 +150,27 @@ public class UserEntity {
         this.updatedAt = updatedAt;
     }
 
-    public Set<UserRolEntity> getRoles() {
+    public Set<UserRol> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRolEntity> roles) {
+    public void setRoles(Set<UserRol> roles) {
         this.roles = roles;
+    }
+
+    public Set<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<ReviewEntity> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Set<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderEntity> orders) {
+        this.orders = orders;
     }
 }

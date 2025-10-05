@@ -20,9 +20,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto create(CreateUserRequestDto request) {
-        if (userRepository.existsByEmail(request.email())) {
-            throw new RuntimeException("El correo ya esta registrado");
-        }
         UserEntity user = userMapper.toEntity(request);
         user = userRepository.save(user);
 

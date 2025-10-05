@@ -1,7 +1,6 @@
 package com.nami.demo.restaurant.mapper;
 
 import com.nami.demo.model.entity.RestaurantEntity;
-import com.nami.demo.model.entity.UserEntity;
 import com.nami.demo.model.enums.RestaurantStatus;
 import com.nami.demo.restaurant.dto.request.CreateRestaurantRequestDto;
 import com.nami.demo.restaurant.dto.response.RestaurantResponseDto;
