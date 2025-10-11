@@ -9,4 +9,5 @@ services:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
       DB_PSS: ${DB_PSS}
+      TOKEN_SECRET: ${TOKEN_SECRET}
     restart: always
