@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: nami_nami
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PSS}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+          static-locations: classpath:/static/
+
+jwt:
+  secret: ${TOKEN_SECRET}
+
+server:
+  servlet:
+    context-path: /api/v1
+
+springdoc:
+  api-docs:
+    path: /docs/open-api
+    version: OPENAPI_3_1
+
+  swagger-ui:
+    path: /docs/swagger-ui/index.html
+    title: Ñami Ñami API Docs
