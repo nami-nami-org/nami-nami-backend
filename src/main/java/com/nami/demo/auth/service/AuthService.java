@@ -1,4 +1,8 @@
 package com.nami.demo.auth.service;
 
-public class AuthService {
+import com.nami.demo.auth.dto.request.LoginRequestDto;
+import com.nami.demo.auth.dto.response.LoginResponseDto;
+
+public interface AuthService {
+    LoginResponseDto login(LoginRequestDto request);
 }

@@ -18,7 +18,7 @@ public class SecurityObserver {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/auth"
+                        .requestMatchers(HttpMethod.POST, "/auth/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

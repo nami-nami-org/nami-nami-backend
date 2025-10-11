@@ -3,23 +3,38 @@ package com.nami.demo.auth.strategies;
 import com.nami.demo.model.entity.UserEntity;
 import io.jsonwebtoken.Jwts;
 
-import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.security.Key;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
-public class JWT {
-    @Value("${app.token-secret}")
+@Component
+public class JwtStrategy {
+    @Value("${jwt.secret}")
     private String tokenSecret;
 
-    private final SecretKey key = Keys.hmacShaKeyFor(
-            tokenSecret.getBytes(StandardCharsets.UTF_8)
-    );
+    private Key key;
 
+    @jakarta.annotation.PostConstruct
+    public void init() {
+        key = Keys.hmacShaKeyFor(tokenSecret.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public String generateToken(UserEntity user) {
+        long expirationMillis = 1000 * 60 * 60 * 24; // 24 Horas
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + expirationMillis);
+        return Jwts.builder()
+                .subject(user.getEmail())
+                .issuedAt(now)
+                .expiration(expiry)
+                .signWith(key)
+                .compact();
+    }
+    /*
     private Claims getClaims(String token) {
         return Jwts.parser()
                 .verifyWith(key)
@@ -40,17 +55,5 @@ public class JWT {
         String username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
-
-    public String generateToken(UserEntity user) {
-        long expirationMillis = 1000 *60 * 60 * 24; // 24 HORA
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + expirationMillis);
-        return Jwts.builder()
-                .subject(user.getEmail())
-                .issuedAt(now)
-                .expiration(expiry)
-                .signWith(key)
-                .compact();
-    }
-
+    */
 }

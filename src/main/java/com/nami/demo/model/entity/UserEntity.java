@@ -55,16 +55,19 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private Set<OrderEntity> orders;
 
+    // Antes del INSERT
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
         this.createdAt = now;
         this.updatedAt = now;
+        this.active = true;
 
-        this.roles = new HashSet<UserRol>();
-        this.roles.add(UserRol.CLIENTE);
+        if (this.roles == null) this.roles = new HashSet<>();
+        if (this.roles.isEmpty()) this.roles.add(UserRol.CLIENTE);
     }
-    
+
+
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();

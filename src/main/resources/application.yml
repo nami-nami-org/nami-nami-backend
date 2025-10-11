@@ -14,8 +14,10 @@ spring:
     hibernate:
       ddl-auto: update
 
+jwt:
+  secret: ${TOKEN_SECRET}
+
 app:
-  token-secret: ${TOKEN_SECRET}
 
 server:
   servlet:
