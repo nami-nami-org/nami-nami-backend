@@ -1,9 +1,9 @@
-package com.nami.demo.auth.service;
+package com.nami.demo.api.auth.service;
 
-import com.nami.demo.auth.dto.request.LoginRequestDto;
-import com.nami.demo.auth.dto.request.RegisterRequestDto;
-import com.nami.demo.auth.dto.response.LoginResponseDto;
-import com.nami.demo.routes.user.dto.response.UserResponseDto;
+import com.nami.demo.api.auth.dto.request.LoginRequestDto;
+import com.nami.demo.api.auth.dto.request.RegisterRequestDto;
+import com.nami.demo.api.auth.dto.response.LoginResponseDto;
+import com.nami.demo.api.user.dto.response.UserResponseDto;
 
 public interface AuthService {
     LoginResponseDto login(LoginRequestDto request);

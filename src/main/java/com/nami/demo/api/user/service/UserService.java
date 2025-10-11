@@ -1,6 +1,6 @@
-package com.nami.demo.routes.user.service;
+package com.nami.demo.api.user.service;
 
-import com.nami.demo.routes.user.dto.response.UserResponseDto;
+import com.nami.demo.api.user.dto.response.UserResponseDto;
 
 public interface UserService {
     UserResponseDto findById(Long id);

@@ -1,4 +1,4 @@
-package com.nami.demo.routes.user.dto.response;
+package com.nami.demo.api.user.dto.response;
 
 import com.nami.demo.model.enums.UserRol;
 import java.time.LocalDateTime;

@@ -1,6 +1,6 @@
-package com.nami.demo.auth.dto.response;
+package com.nami.demo.api.auth.dto.response;
 
-import com.nami.demo.routes.user.dto.response.UserResponseDto;
+import com.nami.demo.api.user.dto.response.UserResponseDto;
 
 public class LoginResponseDto {
     private String token;

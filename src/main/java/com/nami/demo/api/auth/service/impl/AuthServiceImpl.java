@@ -1,15 +1,15 @@
-package com.nami.demo.auth.service.impl;
+package com.nami.demo.api.auth.service.impl;
 
-import com.nami.demo.auth.dto.request.LoginRequestDto;
-import com.nami.demo.auth.dto.response.LoginResponseDto;
-import com.nami.demo.auth.mapper.AuthMapper;
-import com.nami.demo.auth.service.AuthService;
-import com.nami.demo.auth.strategies.JwtStrategy;
+import com.nami.demo.api.auth.dto.request.LoginRequestDto;
+import com.nami.demo.api.auth.dto.response.LoginResponseDto;
+import com.nami.demo.api.auth.mapper.AuthMapper;
+import com.nami.demo.api.auth.service.AuthService;
+import com.nami.demo.api.auth.strategy.JwtStrategy;
 import com.nami.demo.model.entity.UserEntity;
-import com.nami.demo.auth.dto.request.RegisterRequestDto;
-import com.nami.demo.routes.user.dto.response.UserResponseDto;
-import com.nami.demo.routes.user.mapper.UserMapper;
-import com.nami.demo.routes.user.repository.UserRepository;
+import com.nami.demo.api.auth.dto.request.RegisterRequestDto;
+import com.nami.demo.api.user.dto.response.UserResponseDto;
+import com.nami.demo.api.user.mapper.UserMapper;
+import com.nami.demo.api.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

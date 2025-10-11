@@ -1,18 +1,30 @@
 package com.nami.demo.config;
 
-import lombok.RequiredArgsConstructor;
+import com.nami.demo.api.auth.handler.AuthAccessDeniedHandler;
+import com.nami.demo.api.auth.handler.AuthFailureHandler;
+import com.nami.demo.api.auth.strategy.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
-public class SecurityObserver {
+public class SecurityMiddleware {
+    private final JwtAuthenticationFilter jwtFilter;
+    private final AuthAccessDeniedHandler authAccessDeniedHandler;
+    private final AuthFailureHandler authFailureHandler;
+
+    public SecurityMiddleware(JwtAuthenticationFilter jwtFilter, AuthAccessDeniedHandler authAccessDeniedHandler, AuthFailureHandler authFailureHandler) {
+        this.jwtFilter = jwtFilter;
+        this.authAccessDeniedHandler = authAccessDeniedHandler;
+        this.authFailureHandler = authFailureHandler;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -22,7 +34,12 @@ public class SecurityObserver {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler(authAccessDeniedHandler)
+                        .authenticationEntryPoint(authFailureHandler)
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

@@ -1,4 +1,4 @@
-package com.nami.demo.routes.user.repository;
+package com.nami.demo.api.user.repository;
 import com.nami.demo.model.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

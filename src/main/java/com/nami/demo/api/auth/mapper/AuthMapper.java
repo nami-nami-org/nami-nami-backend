@@ -1,8 +1,8 @@
-package com.nami.demo.auth.mapper;
+package com.nami.demo.api.auth.mapper;
 
-import com.nami.demo.auth.dto.response.LoginResponseDto;
+import com.nami.demo.api.auth.dto.response.LoginResponseDto;
 import com.nami.demo.model.entity.UserEntity;
-import com.nami.demo.routes.user.dto.response.UserResponseDto;
+import com.nami.demo.api.user.dto.response.UserResponseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

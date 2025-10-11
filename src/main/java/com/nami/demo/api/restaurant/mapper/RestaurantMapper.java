@@ -1,9 +1,9 @@
-package com.nami.demo.restaurant.mapper;
+package com.nami.demo.api.restaurant.mapper;
 
 import com.nami.demo.model.entity.RestaurantEntity;
 import com.nami.demo.model.enums.RestaurantStatus;
-import com.nami.demo.restaurant.dto.request.CreateRestaurantRequestDto;
-import com.nami.demo.restaurant.dto.response.RestaurantResponseDto;
+import com.nami.demo.api.restaurant.dto.request.CreateRestaurantRequestDto;
+import com.nami.demo.api.restaurant.dto.response.RestaurantResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

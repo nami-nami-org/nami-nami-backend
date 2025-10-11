@@ -1,8 +1,8 @@
-package com.nami.demo.restaurant.controller;
+package com.nami.demo.api.restaurant.controller;
 
-import com.nami.demo.restaurant.dto.request.CreateRestaurantRequestDto;
-import com.nami.demo.restaurant.dto.response.RestaurantResponseDto;
-import com.nami.demo.restaurant.service.RestaurantService;
+import com.nami.demo.api.restaurant.dto.request.CreateRestaurantRequestDto;
+import com.nami.demo.api.restaurant.dto.response.RestaurantResponseDto;
+import com.nami.demo.api.restaurant.service.RestaurantService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,4 +1,4 @@
-package com.nami.demo.restaurant.dto.request;
+package com.nami.demo.api.restaurant.dto.request;
 
 public record CreateRestaurantRequestDto(
     String commercialName,

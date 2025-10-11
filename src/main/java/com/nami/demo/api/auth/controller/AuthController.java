@@ -1,11 +1,11 @@
-package com.nami.demo.auth.controller;
+package com.nami.demo.api.auth.controller;
 
-import com.nami.demo.auth.dto.request.LoginRequestDto;
-import com.nami.demo.auth.dto.response.LoginResponseDto;
-import com.nami.demo.auth.service.AuthService;
-import com.nami.demo.auth.dto.request.RegisterRequestDto;
-import com.nami.demo.routes.user.dto.response.UserResponseDto;
-import com.nami.demo.routes.user.service.UserService;
+import com.nami.demo.api.auth.dto.request.LoginRequestDto;
+import com.nami.demo.api.auth.dto.response.LoginResponseDto;
+import com.nami.demo.api.auth.service.AuthService;
+import com.nami.demo.api.auth.dto.request.RegisterRequestDto;
+import com.nami.demo.api.user.dto.response.UserResponseDto;
+import com.nami.demo.api.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

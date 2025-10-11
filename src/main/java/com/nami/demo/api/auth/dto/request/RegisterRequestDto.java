@@ -1,4 +1,4 @@
-package com.nami.demo.auth.dto.request;
+package com.nami.demo.api.auth.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

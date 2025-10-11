@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.util.Map;
 
 @Component
-public class AuthenticationFailureHandler implements AuthenticationEntryPoint {
+public class AuthFailureHandler implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getWriter().write(new ObjectMapper().writeValueAsString(Map.of(
-                "message", "Token invalido o no proporcionado",
+                "message", "Token inválido o no proporcionado. Por favor inicia sesión de nuevo.",
                 "statusCode", 401
         )));
     }

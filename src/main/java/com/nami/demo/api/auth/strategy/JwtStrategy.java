@@ -1,22 +1,25 @@
-package com.nami.demo.auth.strategies;
+package com.nami.demo.api.auth.strategy;
 
 import com.nami.demo.model.entity.UserEntity;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.security.Key;
 
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import javax.crypto.SecretKey;
 
 @Component
 public class JwtStrategy {
     @Value("${jwt.secret}")
     private String tokenSecret;
 
-    private Key key;
+    private SecretKey key;
 
     @jakarta.annotation.PostConstruct
     public void init() {
@@ -34,13 +37,13 @@ public class JwtStrategy {
                 .signWith(key)
                 .compact();
     }
-    /*
     private Claims getClaims(String token) {
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+
     }
 
     public String extractUsername(String token) {
@@ -51,9 +54,8 @@ public class JwtStrategy {
         return getClaims(token).getExpiration().before(new Date());
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(String token, UserDetails  userDetails) {
         String username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
-    */
 }
