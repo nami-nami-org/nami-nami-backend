@@ -19,10 +19,12 @@ public record RegisterRequestDto(
         @Size(min = 8, max = 100, message = "La contraseña debe tener al menos 8 caracteres")
         String password,
 
+        @NotBlank(message = "El teléfono es obligatorio")
         @Pattern(
                 regexp = "^[0-9]{7,15}$",
                 message = "El teléfono debe contener solo números y tener entre 7 y 15 dígitos"
         )
+        @Size(min = 5, max = 20, message = "El número de teléfono debe tener al menos 5 caracteres")
         String phone
 ) {
 }
