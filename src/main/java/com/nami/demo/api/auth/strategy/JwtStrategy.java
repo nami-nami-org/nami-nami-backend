@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class JwtStrategy {
 
     private SecretKey key;
 
-    @jakarta.annotation.PostConstruct
+    @PostConstruct
     public void init() {
         key = Keys.hmacShaKeyFor(tokenSecret.getBytes(StandardCharsets.UTF_8));
     }
