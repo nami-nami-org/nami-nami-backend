@@ -24,4 +24,7 @@ public class RestaurantController {
         RestaurantResponseDto restaurantResponseDto = restaurantService.create(createRestaurantRequestDto);
         return ResponseEntity.ok(restaurantResponseDto);
     }
+
+
+
 }

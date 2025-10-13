@@ -62,10 +62,6 @@ public class RestaurantEntity {
     @Column(name = "website_url")
     private String websiteUrl;
 
-    // -------------------
-    // Constructors
-    // -------------------
-
     public RestaurantEntity() {
     }
 
@@ -92,9 +88,6 @@ public class RestaurantEntity {
         this.websiteUrl = websiteUrl;
     }
 
-    // -------------------
-    // Getters and Setters
-    // -------------------
 
     public Long getId() {
         return id;
