@@ -25,4 +25,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantEntity = restaurantRepository.save(restaurantEntity);
         return restaurantMapper.toDto(restaurantEntity);
     }
+
+    @Override
+    public RestaurantResponseDto findById(long id) {
+        RestaurantEntity restaurantEntity = restaurantRepository.findById(id).orElseThrow(()->new RuntimeException("Restaurante no encontrado"));
+        return restaurantMapper.toDto(restaurantEntity);
+    }
+
 }
