@@ -8,7 +8,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # 2️⃣ Etapa de ejecución
-FROM openjdk:21-slim
+FROM openjdk:21-slim AS exec
 WORKDIR /app
 
 # Copiar el JAR generado en la etapa anterior

@@ -1,7 +1,6 @@
 package com.nami.demo.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.nami.demo.model.enums.OrderStatus;
 import com.nami.demo.model.enums.UserRol;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -54,9 +53,11 @@ public class UserEntity implements UserDetails {
     private Set<UserRol> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<ReviewEntity> reviews;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<OrderEntity> orders;
 
     // Antes del INSERT
@@ -189,4 +190,18 @@ public class UserEntity implements UserDetails {
     public void setOrders(Set<OrderEntity> orders) {
         this.orders = orders;
     }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", phone='" + phone + '\'' +
+            ", active=" + active +
+            ", createdAt=" + createdAt +
+            ", updatedAt=" + updatedAt +
+            '}';
+    }
+
 }

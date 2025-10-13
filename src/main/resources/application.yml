@@ -16,7 +16,6 @@ spring:
       idle-timeout: 30000
       connection-timeout: 20000
       max-lifetime: 600000
-
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
@@ -38,11 +37,15 @@ server:
   servlet:
     context-path: /api/v1
 
+cloudinary:
+  CLOUD_NAME: ${CLOUD_NAME}
+  API_KEY: ${API_KEY}
+  API_SECRET: ${CLOUD_API_SECRET}
+
 springdoc:
   api-docs:
     path: /docs/open-api
     version: OPENAPI_3_1
-
   swagger-ui:
     path: /docs/swagger-ui/index.html
     title: Ñami Ñami API Docs

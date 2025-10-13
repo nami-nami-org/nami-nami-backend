@@ -2,7 +2,6 @@ package com.nami.demo.api.restaurant.service.impl;
 
 import com.nami.demo.model.entity.RestaurantEntity;
 import com.nami.demo.api.restaurant.dto.request.CreateRestaurantRequestDto;
-import com.nami.demo.api.restaurant.dto.response.RestaurantResponseDto;
 import com.nami.demo.api.restaurant.mapper.RestaurantMapper;
 import com.nami.demo.api.restaurant.repository.RestaurantRepository;
 import com.nami.demo.api.restaurant.service.RestaurantService;
@@ -20,10 +19,15 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public RestaurantResponseDto create(CreateRestaurantRequestDto restaurantRequestDto) {
+    public RestaurantEntity create(CreateRestaurantRequestDto restaurantRequestDto) {
         RestaurantEntity restaurantEntity = restaurantMapper.toEntity(restaurantRequestDto);
-        restaurantEntity = restaurantRepository.save(restaurantEntity);
-        return restaurantMapper.toDto(restaurantEntity);
+
+        System.out.println("-------------------------------------------------------------");
+        System.out.println(restaurantEntity);
+
+        // restaurantEntity = restaurantRepository.save(restaurantEntity);
+        // return restaurantMapper.toDto(restaurantEntity);
+        return restaurantEntity;
     }
 
     @Override
