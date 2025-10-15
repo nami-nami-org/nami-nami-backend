@@ -43,7 +43,7 @@ public class LocalEntity {
     private RestaurantStatus status = RestaurantStatus.CERRADO;
 
     @Column(name = "average_rating")
-    private double averageRating = 0.0;
+    private Double averageRating ;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -76,7 +76,7 @@ public class LocalEntity {
 
     public LocalEntity(Long id, String localName, RestaurantEntity restaurant, String tradeName, String description,
                        Set<DishEntity> dishes, String address, String phone, double deliveryCost,
-                       RestaurantStatus status, double averageRating, LocalDateTime createdAt, LocalDateTime updatedAt,
+                       RestaurantStatus status, Double averageRating, LocalDateTime createdAt, LocalDateTime updatedAt,
                        boolean deliveryAvailable, Integer averageDeliveryTime, LocalDateTime openingTime,
                        LocalDateTime closingTime, double altitude, double longitude, String direction) {
         this.id = id;
@@ -100,10 +100,6 @@ public class LocalEntity {
         this.longitude = longitude;
         this.direction = direction;
     }
-
-    // -------------------
-    // Getters and Setters
-    // -------------------
 
     public Long getId() {
         return id;
@@ -185,11 +181,11 @@ public class LocalEntity {
         this.status = status;
     }
 
-    public double getAverageRating() {
+    public Double getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(double averageRating) {
+    public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
 
