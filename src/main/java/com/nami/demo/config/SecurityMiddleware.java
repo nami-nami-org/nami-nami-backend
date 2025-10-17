@@ -32,7 +32,8 @@ public class SecurityMiddleware {
                 .requestMatchers(
                     "/auth/**",
                     "/docs/**",
-                    "/static/**"
+                    "/static/**",
+                    "/health/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
