@@ -11,4 +11,5 @@ public interface LocalRepository extends JpaRepository<LocalEntity,Long > {
     @Query("SELECT l FROM LocalEntity l WHERE l.id = :localId AND l.restaurant.user.id = :userId")
     Optional<LocalEntity> findByIdAndUserId(Long localId, Long userId);
 
+    Long id(Long id);
 }
