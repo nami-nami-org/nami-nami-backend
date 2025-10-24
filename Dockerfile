@@ -16,3 +16,5 @@ COPY --from=build /app/target/nami_nami-0.0.1.jar nami-nami.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "nami-nami.jar"]
+
+
