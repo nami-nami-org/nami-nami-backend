@@ -36,6 +36,7 @@ public class DishMapper {
 
     public DishResponseDto toResponseDto(DishEntity entity) {
         return new DishResponseDto(
+                entity.getId(),
                 entity.getName(),
                 entity.getDescription(),
                 entity.getDiscount(),

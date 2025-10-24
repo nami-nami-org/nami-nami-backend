@@ -3,6 +3,7 @@ package com.nami.demo.api.dishCategory.dto.response;
 import java.time.LocalDateTime;
 
 public record DishCategoryResponseDto(
+        long id,
         String name,
         String description,
         String type,

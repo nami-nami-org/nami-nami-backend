@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public record DishResponseDto(
+        long id,
         String name,
         String description,
         double discount,

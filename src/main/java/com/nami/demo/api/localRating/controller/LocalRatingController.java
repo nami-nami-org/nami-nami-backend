@@ -18,7 +18,7 @@ public class LocalRatingController {
         this.localRatingService = localRatingService;
     }
 
-    @PostMapping("/local")
+    @PostMapping
     public ResponseEntity<LocalRatingResponseDto> createLocalRating(
             @RequestBody CreateLocalRatingRequestDto dto) {
 
@@ -38,12 +38,12 @@ public class LocalRatingController {
         return ResponseEntity.ok(responses);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<LocalRatingResponseDto> updateLocalRating(
-
-            @RequestBody CreateLocalRatingRequestDto dto) {
-
-        LocalRatingResponseDto response = localRatingService.updateLocalRating(dto);
+            @RequestBody CreateLocalRatingRequestDto dto,
+            @PathVariable long id
+    ) {
+        LocalRatingResponseDto response = localRatingService.updateLocalRating(dto,id);
         return ResponseEntity.ok(response);
     }
 

@@ -22,6 +22,7 @@ public class DishCategoryMapper {
 
     public DishCategoryResponseDto toResponseDto(DishCategoryEntity entity) {
         return new DishCategoryResponseDto(
+                entity.getId(),
                 entity.getName(),
                 entity.getDescription(),
                 entity.getType(),

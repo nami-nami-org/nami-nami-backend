@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("local")
-@RequiredArgsConstructor
+@RequestMapping("/local")
 public class LocalController {
 
     private final LocalService localService;
+
+    public LocalController(LocalService localService) {
+        this.localService = localService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<LocalResponseDto> getLocalById(@PathVariable long id) {

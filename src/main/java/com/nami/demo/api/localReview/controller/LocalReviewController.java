@@ -18,7 +18,7 @@ public class LocalReviewController {
         this.localReviewService = localReviewService;
     }
 
-    @PostMapping("/local")
+    @PostMapping
     public ResponseEntity<LocalReviewResponseDto> createReview(
             @RequestBody CreateLocalReviewRequestDto dto) {
 
@@ -36,11 +36,14 @@ public class LocalReviewController {
         return ResponseEntity.ok(localReviewService.findAllByLocal(localId));
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<LocalReviewResponseDto> updateReview(
-            @RequestBody CreateLocalReviewRequestDto dto) {
+            @RequestBody CreateLocalReviewRequestDto dto,
+            @PathVariable long id) {
 
-        return ResponseEntity.ok(localReviewService.updateLocalReview(dto));
+        LocalReviewResponseDto localReviewResponseDto = localReviewService.updateLocalReview(dto,id);
+
+        return ResponseEntity.ok(localReviewResponseDto);
     }
 
     @DeleteMapping("/{id}")

@@ -33,6 +33,7 @@ public class LocalMapper {
 
     public LocalResponseDto toResponseDto(LocalEntity entity) {
         return new LocalResponseDto(
+                entity.getId(),
                 entity.getLocalName(),
                 entity.getTradeName(),
                 entity.getDescription(),

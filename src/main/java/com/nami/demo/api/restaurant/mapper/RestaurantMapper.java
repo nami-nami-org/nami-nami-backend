@@ -38,6 +38,7 @@ public class RestaurantMapper {
 
     public RestaurantResponseDto toDto( RestaurantEntity entity) {
         return new RestaurantResponseDto(
+                entity.getId(),
                 entity.getCommercialName(),
                 entity.getDescription(),
                 entity.getPhone(),
