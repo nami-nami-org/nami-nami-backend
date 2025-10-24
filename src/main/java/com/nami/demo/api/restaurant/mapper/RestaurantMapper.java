@@ -40,7 +40,8 @@ public class RestaurantMapper {
         return new RestaurantResponseDto(
                 entity.getCommercialName(),
                 entity.getDescription(),
-                entity.getPhone()
+                entity.getPhone(),
+                entity.getAverageRating()
         );
     }
 
