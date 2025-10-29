@@ -50,6 +50,22 @@ public class AuthServiceImpl implements AuthService {
         if (!validPassword) throw new RuntimeException("Correo o contraseña icorrectos");
 
         String token = jwt.generateToken(user);
-        return authMapper.toResponseDto("Bearer " + token, user);
+        return authMapper.toResponseDto(token, user);
     }
+
+    @Override
+    public String refreshToken(String oldToken) {
+        String username = jwt.extractUsername(oldToken);
+        if (username == null)
+            throw new RuntimeException("Token inválido");
+
+        UserEntity user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (!jwt.isTokenValid(oldToken, user))
+            throw new RuntimeException("Token expirado o inválido");
+
+        return jwt.generateToken(user);
+    }
+
 }

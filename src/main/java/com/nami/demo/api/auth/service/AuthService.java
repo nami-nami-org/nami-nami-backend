@@ -8,4 +8,6 @@ import com.nami.demo.api.user.dto.response.UserResponseDto;
 public interface AuthService {
     LoginResponseDto login(LoginRequestDto request);
     UserResponseDto register(RegisterRequestDto request);
+
+    String refreshToken(String oldToken);
 }
