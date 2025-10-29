@@ -28,7 +28,7 @@ public class JwtStrategy {
     }
 
     public String generateToken(UserEntity user) {
-        long expirationMillis = 1000 * 60 * 60 * 24; // 24 Horas
+        long expirationMillis = 1000 * 60 * 60 * 24 * 2; // 2 Días
         Date now = new Date();
         Date expiry = new Date(now.getTime() + expirationMillis);
         return Jwts.builder()
@@ -38,6 +38,7 @@ public class JwtStrategy {
                 .signWith(key)
                 .compact();
     }
+
     private Claims getClaims(String token) {
         return Jwts.parser()
                 .verifyWith(key)
