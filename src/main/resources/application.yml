@@ -31,6 +31,9 @@ spring:
 jwt:
   secret: ${TOKEN_SECRET}
 
+nami:
+  env: ${APP_ENV:development}
+
 server:
   servlet:
     context-path: /api/v1

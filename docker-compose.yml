@@ -10,4 +10,5 @@ services:
       DB_USER: ${DB_USER}
       DB_PSS: ${DB_PSS}
       TOKEN_SECRET: ${TOKEN_SECRET}
+      APP_ENV: ${APP_ENV}
     restart: always
