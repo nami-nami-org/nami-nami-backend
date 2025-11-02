@@ -7,6 +7,7 @@ import com.nami.demo.api.restaurant.service.RestaurantService;
 import com.nami.demo.model.entity.RestaurantEntity;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,15 +23,17 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
-    @PostMapping()
-    public ResponseEntity<?> createNewRestaurant(@Valid @RequestBody CreateRestaurantRequestDto request) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createNewRestaurant(
+            @Valid @ModelAttribute CreateRestaurantRequestDto request
+    ) {
         try {
-            RestaurantEntity restaurantResponseDto = restaurantService.create(request);
+            RestaurantResponseDto restaurantResponseDto = restaurantService.create(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(restaurantResponseDto);
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
-                    "message", e.getMessage(),
-                    "statusCode", HttpStatus.BAD_REQUEST.value()
+                "message", e.getMessage(),
+                "statusCode", HttpStatus.BAD_REQUEST.value()
             ));
         }
     }

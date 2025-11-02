@@ -16,8 +16,8 @@ public class RestaurantEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
     private UserEntity user;
 

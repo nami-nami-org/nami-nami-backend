@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
-public record CreateRestaurantRequestDto(
+public record CreateRestaurantRequestDto (
     @NotBlank(message = "El nombre comercial es obligatorio.")
     @Size(max = 200, message = "El nombre comercial no debe superar los 200 caracteres.")
     String commercialName,
@@ -32,9 +32,9 @@ public record CreateRestaurantRequestDto(
     )
     String websiteUrl,
 
-    // MultipartFile image,
+    MultipartFile image,
 
-    // MultipartFile logo,
+    MultipartFile logo,
 
     @NotBlank(message = "El RUC es obligatorio.")
     @Pattern(regexp = "^[0-9]{11}$", message = "El RUC debe contener exactamente 11 dígitos.")

@@ -60,6 +60,10 @@ public class UserEntity implements UserDetails {
     @JsonManagedReference
     private Set<OrderEntity> orders;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<RestaurantEntity> restaurants = new HashSet<>();
+
     // Antes del INSERT
     @PrePersist
     protected void onCreate() {
@@ -89,7 +93,7 @@ public class UserEntity implements UserDetails {
 
     public UserEntity() {}
 
-    public UserEntity(Long id, String name, String email, String password, String phone, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRol> roles, Set<ReviewEntity> reviews, Set<OrderEntity> orders) {
+    public UserEntity(Long id, String name, String email, String password, String phone, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRol> roles, Set<ReviewEntity> reviews, Set<OrderEntity> orders, Set<RestaurantEntity> restaurants) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -101,6 +105,7 @@ public class UserEntity implements UserDetails {
         this.roles = roles;
         this.reviews = reviews;
         this.orders = orders;
+        this.restaurants = restaurants;
     }
 
     public Long getId() {
@@ -127,6 +132,7 @@ public class UserEntity implements UserDetails {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -189,6 +195,14 @@ public class UserEntity implements UserDetails {
 
     public void setOrders(Set<OrderEntity> orders) {
         this.orders = orders;
+    }
+
+    public Set<RestaurantEntity> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(Set<RestaurantEntity> restaurants) {
+        this.restaurants = restaurants;
     }
 
     @Override
