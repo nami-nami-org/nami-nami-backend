@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -47,7 +49,7 @@ public class AuthController {
         try {
             LoginResponseDto user = authService.login(request);
             response.addCookie(createAuthCookie(user.getToken()));
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(user.getUser());
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "message", e.getMessage(),
@@ -55,6 +57,37 @@ public class AuthController {
             ));
         }
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> me(
+            HttpServletRequest request,
+            @RequestHeader(value = "Authorization", required = false) String authHeader
+    ) {
+        try {
+            String token = extractTokenFromCookies(request);
+            if (token == null && authHeader != null && authHeader.startsWith("Bearer ")) {
+                token = authHeader.substring(7);
+            }
+
+            UserResponseDto user = authService.isTokenValid(token);
+
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                        "isValid", false,
+                        "message", "Token inválido o expirado"
+                ));
+            }
+
+            return ResponseEntity.ok(user);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "isValid", false,
+                    "message", e.getMessage()
+            ));
+        }
+    }
+
 
     @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {

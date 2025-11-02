@@ -10,4 +10,8 @@ public interface AuthService {
     UserResponseDto register(RegisterRequestDto request);
 
     String refreshToken(String oldToken);
+
+    UserResponseDto getUserSession(String email);
+
+    UserResponseDto isTokenValid(String token);
 }
