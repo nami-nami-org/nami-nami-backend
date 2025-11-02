@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import io.jsonwebtoken.JwtException;
 
 import java.io.IOException;
 
@@ -33,11 +34,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = null;
         String authHeader = request.getHeader("Authorization");
 
-        // header con Bearer
+        // obtención de token por header y cookie
         if (authHeader != null && authHeader.startsWith("Bearer "))
             token = authHeader.substring(7);
 
-        // buscar cookie
         if (token == null && request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if ("Nami_Auth_Session".equals(cookie.getName())) {
@@ -47,32 +47,42 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        // 🚫 continuar sin autenticar
+        // Si no hay token continúa. Spring Security manejará si la ruta es pública o no.
         if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Extraer username y validar
-        String username = jwtStrategy.extractUsername(token);
+        try {
+            String username = jwtStrategy.extractUsername(token);
 
-        if (username == null || SecurityContextHolder.getContext().getAuthentication() != null) {
-            filterChain.doFilter(request, response);
-            return;
+            // Si ya hay autenticación o el username es nulo después de la extracción,
+            if (username == null || SecurityContextHolder.getContext().getAuthentication() != null) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
+
+            if (!jwtStrategy.isTokenValid(token, userDetails)) {
+                // Si el token no es válido (ej. expirado o no coincide el usuario), simplemente deja que la petición continúe sin autenticación.
+                // Spring Security bloqueará si la ruta no es pública.
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            //  Crear autenticación si es válida
+            UsernamePasswordAuthenticationToken authToken =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        } catch (JwtException e) {
+            System.out.println("Invalid JWT token detected: " + e.getMessage());
+        } catch (Exception e) {
+            // Manejar otras posibles excepciones (ej. al cargar el UserDetails)
+            System.out.println("An unexpected error occurred during JWT processing: " + e.getMessage());
         }
-
-        UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
-
-        if (!jwtStrategy.isTokenValid(token, userDetails)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        // ✅ Crear autenticación si es válida
-        UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authToken);
 
         filterChain.doFilter(request, response);
     }

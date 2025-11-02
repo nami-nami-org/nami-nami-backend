@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-
     private final UserRepository userRepository;
     private final AuthMapper authMapper;
     private final PasswordEncoder passwordEncoder;
@@ -51,6 +50,50 @@ public class AuthServiceImpl implements AuthService {
 
         String token = jwt.generateToken(user);
         return authMapper.toResponseDto(token, user);
+    }
+
+    @Override
+    public UserResponseDto getUserSession(String email) {
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        return userMapper.toDto(user);
+    }
+
+
+    @Override
+    public UserResponseDto isTokenValid(String token) {
+        try {
+            if (token == null || token.isBlank()) {
+                return null;
+            }
+
+            String username = jwt.extractUsername(token);
+
+            if (username == null) return null;
+
+            UserEntity user = userRepository.findByEmail(username)
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado en la base de datos"));
+
+            boolean valid = jwt.isTokenValid(token, user);
+
+            if (!valid) return null;
+
+            UserResponseDto dto = new UserResponseDto();
+            dto.setId(user.getId());
+            dto.setName(user.getName());
+            dto.setEmail(user.getEmail());
+            dto.setPhone(user.getPhone());
+            dto.setActive(user.isActive());
+            dto.setCreatedAt(user.getCreatedAt());
+            dto.setUpdatedAt(user.getUpdatedAt());
+            dto.setRoles(user.getRoles());
+
+            return dto;
+
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.nami.demo.api.auth.handler.AuthFailureHandler;
 import com.nami.demo.api.auth.strategy.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -45,6 +46,8 @@ public class SecurityMiddleware {
                                 "/docs/**",
                                 "/static/**"
                         ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/dish").permitAll()
+                        //.requestMatchers(HttpMethod.GET, "/dish/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
