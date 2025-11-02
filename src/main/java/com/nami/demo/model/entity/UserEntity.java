@@ -1,6 +1,8 @@
 package com.nami.demo.model.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.nami.demo.model.enums.UserRol;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -54,7 +56,7 @@ public class UserEntity implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
-    private Set<ReviewEntity> reviews;
+    private Set<RestaurantReviewEntity> reviews;
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
@@ -181,11 +183,11 @@ public class UserEntity implements UserDetails {
         this.roles = roles;
     }
 
-    public Set<ReviewEntity> getReviews() {
+    public Set<RestaurantReviewEntity> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<ReviewEntity> reviews) {
+    public void setReviews(Set<RestaurantReviewEntity> reviews) {
         this.reviews = reviews;
     }
 

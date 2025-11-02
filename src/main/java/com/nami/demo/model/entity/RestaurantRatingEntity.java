@@ -21,21 +21,17 @@ public class RestaurantRatingEntity {
     @Column(nullable = false)
     private int rating;
 
-    private String comment;
-
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public RestaurantRatingEntity() {
     }
 
-    public RestaurantRatingEntity(Long id, UserEntity user, RestaurantEntity restaurant, int rating,
-                                  String comment, LocalDateTime createdAt) {
+    public RestaurantRatingEntity(Long id, UserEntity user, RestaurantEntity restaurant, int rating, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.restaurant = restaurant;
         this.rating = rating;
-        this.comment = comment;
         this.createdAt = createdAt;
     }
 
@@ -69,14 +65,6 @@ public class RestaurantRatingEntity {
 
     public void setRating(int rating) {
         this.rating = rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     public LocalDateTime getCreatedAt() {
