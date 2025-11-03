@@ -95,7 +95,7 @@ public class UserEntity implements UserDetails {
 
     public UserEntity() {}
 
-    public UserEntity(Long id, String name, String email, String password, String phone, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRol> roles, Set<ReviewEntity> reviews, Set<OrderEntity> orders, Set<RestaurantEntity> restaurants) {
+    public UserEntity(Long id, String name, String email, String password, String phone, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRol> roles, Set<RestaurantReviewEntity> reviews, Set<OrderEntity> orders, Set<RestaurantEntity> restaurants) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -206,18 +206,4 @@ public class UserEntity implements UserDetails {
     public void setRestaurants(Set<RestaurantEntity> restaurants) {
         this.restaurants = restaurants;
     }
-
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", email='" + email + '\'' +
-            ", phone='" + phone + '\'' +
-            ", active=" + active +
-            ", createdAt=" + createdAt +
-            ", updatedAt=" + updatedAt +
-            '}';
-    }
-
 }
