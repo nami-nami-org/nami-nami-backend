@@ -3,6 +3,7 @@ package com.nami.demo.model.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -18,29 +19,31 @@ public class DishCategoryEntity {
 
     private String description;
 
-    @Column(length = 50)
-    private String type;
-
     @Column(nullable = false)
     private boolean active = true;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "image_url")
+    private String imageUrl ;
+
     @OneToMany(mappedBy = "category")
     private Set<DishCategoryLinkEntity> links;
 
-    public DishCategoryEntity(Long id, String name, String description, String type, boolean active, LocalDateTime createdAt, Set<DishCategoryLinkEntity> links) {
+    public DishCategoryEntity() {
+    }
+
+    public DishCategoryEntity(Long id, String name, String description, boolean active, LocalDateTime createdAt, String imageUrl,
+                              Set<DishCategoryLinkEntity> links) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.type = type;
         this.active = active;
         this.createdAt = createdAt;
+        this.imageUrl = imageUrl;
         this.links = links;
     }
-
-    public DishCategoryEntity() {}
 
     public Long getId() {
         return id;
@@ -66,14 +69,6 @@ public class DishCategoryEntity {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public boolean isActive() {
         return active;
     }
@@ -88,6 +83,14 @@ public class DishCategoryEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Set<DishCategoryLinkEntity> getLinks() {

@@ -63,6 +63,14 @@ public class LocalEntity {
     @Column(name = "closing_time")
     private LocalDateTime closingTime;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "local_images",
+            joinColumns = @JoinColumn(name = "local_id")
+    )
+    @Column(name = "image_url", nullable = false)
+    private Set<String> imageUrls = new HashSet<>();
+
     private double altitude;
 
     private double longitude;

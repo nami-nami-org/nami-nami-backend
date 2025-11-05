@@ -14,7 +14,6 @@ public class DishCategoryMapper {
         DishCategoryEntity entity = new DishCategoryEntity();
         entity.setName(dto.name());
         entity.setDescription(dto.description());
-        entity.setType(dto.type());
         entity.setActive(true);
         entity.setCreatedAt(LocalDateTime.now());
         return entity;
@@ -25,7 +24,6 @@ public class DishCategoryMapper {
                 entity.getId(),
                 entity.getName(),
                 entity.getDescription(),
-                entity.getType(),
                 entity.getCreatedAt(),
                 entity.isActive()
         );

@@ -6,7 +6,6 @@ public record DishCategoryResponseDto(
         long id,
         String name,
         String description,
-        String type,
         LocalDateTime createdAt,
         boolean active
 ) {
