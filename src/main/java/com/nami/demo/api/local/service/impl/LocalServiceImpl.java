@@ -1,6 +1,7 @@
 package com.nami.demo.api.local.service.impl;
 
 import com.nami.demo.api.local.dto.request.CreateLocalRequestDto;
+import com.nami.demo.api.local.dto.request.UpdateLocalRequestDto;
 import com.nami.demo.api.local.dto.response.LocalResponseDto;
 import com.nami.demo.api.local.mapper.LocalMapper;
 import com.nami.demo.api.local.repository.LocalRepository;
@@ -11,6 +12,8 @@ import com.nami.demo.model.entity.RestaurantEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LocalServiceImpl implements LocalService {
@@ -27,7 +30,8 @@ public class LocalServiceImpl implements LocalService {
 
     @Override
     public LocalResponseDto getLocalById(long id) {
-        LocalEntity localEntity = localRepository.findById(id).orElseThrow(()->new RuntimeException("Local no encontrado"));
+        LocalEntity localEntity = localRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Local no encontrado"));
         return localMapper.toResponseDto(localEntity);
     }
 
@@ -35,21 +39,41 @@ public class LocalServiceImpl implements LocalService {
     public LocalResponseDto newLocal(CreateLocalRequestDto createLocalRequestDto) {
         LocalEntity localEntity = localMapper.toEntity(createLocalRequestDto);
 
-        RestaurantEntity restaurant = restaurantRepository.findById(createLocalRequestDto.restaurantId()).orElseThrow(()->new RuntimeException("Restaurante no encontrado"));
+        RestaurantEntity restaurant = restaurantRepository.findById(createLocalRequestDto.restaurantId())
+                .orElseThrow(() -> new RuntimeException("Restaurante no encontrado"));
 
-        //Una pequeña capa de seguridad para que no se creen locales a un restaurante que no le pertenece al usuario logeado
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-
         if (!restaurant.getUser().getEmail().equals(email)) {
             throw new RuntimeException("No puedes crear locales en un restaurante que no te pertenece");
         }
 
         localEntity.setRestaurant(restaurant);
-
         localEntity = localRepository.save(localEntity);
-
         return localMapper.toResponseDto(localEntity);
     }
 
+    @Override
+    public List<LocalResponseDto> getAllLocales() {
+        return localRepository.findAll()
+                .stream()
+                .map(localMapper::toResponseDto)
+                .toList();
+    }
+
+    @Override
+    public LocalResponseDto updateLocal(long id, UpdateLocalRequestDto dto) {
+        LocalEntity entity = localRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Local no encontrado"));
+        localMapper.updateEntity(entity, dto);
+        localRepository.save(entity);
+        return localMapper.toResponseDto(entity);
+    }
+
+    @Override
+    public void deleteLocal(long id) {
+        LocalEntity entity = localRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Local no encontrado"));
+        localRepository.delete(entity);
+    }
 }

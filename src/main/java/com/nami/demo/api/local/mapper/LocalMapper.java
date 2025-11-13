@@ -1,6 +1,7 @@
 package com.nami.demo.api.local.mapper;
 
 import com.nami.demo.api.local.dto.request.CreateLocalRequestDto;
+import com.nami.demo.api.local.dto.request.UpdateLocalRequestDto;
 import com.nami.demo.api.local.dto.response.LocalResponseDto;
 import com.nami.demo.model.entity.LocalEntity;
 import com.nami.demo.model.enums.RestaurantStatus;
@@ -13,7 +14,6 @@ public class LocalMapper {
 
     public LocalEntity toEntity(CreateLocalRequestDto dto) {
         LocalEntity entity = new LocalEntity();
-
         entity.setLocalName(dto.localName());
         entity.setTradeName(dto.tradeName());
         entity.setDescription(dto.description());
@@ -23,13 +23,22 @@ public class LocalMapper {
         entity.setDirection(dto.direction());
         entity.setStatus(RestaurantStatus.CERRADO);
         entity.setDeliveryAvailable(true);
-        entity.setAverageRating(null);
         entity.setCreatedAt(LocalDateTime.now());
         entity.setUpdatedAt(LocalDateTime.now());
-
         return entity;
     }
 
+    public void updateEntity(LocalEntity entity, UpdateLocalRequestDto dto) {
+        if (dto.localName() != null) entity.setLocalName(dto.localName());
+        if (dto.tradeName() != null) entity.setTradeName(dto.tradeName());
+        if (dto.description() != null) entity.setDescription(dto.description());
+        if (dto.address() != null) entity.setAddress(dto.address());
+        if (dto.phone() != null) entity.setPhone(dto.phone());
+        if (dto.deliveryCost() != null) entity.setDeliveryCost(dto.deliveryCost());
+        if (dto.direction() != null) entity.setDirection(dto.direction());
+        if (dto.deliveryAvailable() != null) entity.setDeliveryAvailable(dto.deliveryAvailable());
+        entity.setUpdatedAt(LocalDateTime.now());
+    }
 
     public LocalResponseDto toResponseDto(LocalEntity entity) {
         return new LocalResponseDto(

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface LocalRepository extends JpaRepository<LocalEntity,Long > {
+public interface LocalRepository extends JpaRepository<LocalEntity,Long> {
 
     @Query("SELECT l FROM LocalEntity l WHERE l.id = :localId AND l.restaurant.user.id = :userId")
     Optional<LocalEntity> findByIdAndUserId(Long localId, Long userId);

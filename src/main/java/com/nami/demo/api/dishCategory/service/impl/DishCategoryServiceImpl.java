@@ -8,6 +8,7 @@ import com.nami.demo.api.dishCategory.service.DishCategoryService;
 import com.nami.demo.model.entity.DishCategoryEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,15 +32,35 @@ public class DishCategoryServiceImpl implements DishCategoryService {
 
     @Override
     public List<DishCategoryResponseDto> getAllCategories() {
-        List<DishCategoryEntity> categories = dishCategoryRepository.findAll();
-        return categories.stream()
+        return dishCategoryRepository.findAll().stream()
                 .map(dishCategoryMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public DishCategoryResponseDto getCategoryById(Long categoryId) {
-        DishCategoryEntity dishCategory = dishCategoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
-        return dishCategoryMapper.toResponseDto(dishCategory);
+        DishCategoryEntity category = dishCategoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+        return dishCategoryMapper.toResponseDto(category);
+    }
+
+    @Override
+    public DishCategoryResponseDto updateCategory(Long categoryId, DishCategoryRequestDto requestDto) {
+        DishCategoryEntity category = dishCategoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+
+        category.setName(requestDto.name());
+        category.setDescription(requestDto.description());
+        category.setUpdateAt(LocalDateTime.now());
+
+        DishCategoryEntity updated = dishCategoryRepository.save(category);
+        return dishCategoryMapper.toResponseDto(updated);
+    }
+
+    @Override
+    public void deleteCategory(Long categoryId) {
+        DishCategoryEntity category = dishCategoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+        dishCategoryRepository.delete(category);
     }
 }

@@ -16,6 +16,7 @@ public class DishCategoryMapper {
         entity.setDescription(dto.description());
         entity.setActive(true);
         entity.setCreatedAt(LocalDateTime.now());
+        entity.setUpdateAt(LocalDateTime.now());
         return entity;
     }
 

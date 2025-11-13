@@ -25,6 +25,9 @@ public class DishCategoryEntity {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime updateAt;
+
     @Column(name = "image_url")
     private String imageUrl ;
 
@@ -34,13 +37,13 @@ public class DishCategoryEntity {
     public DishCategoryEntity() {
     }
 
-    public DishCategoryEntity(Long id, String name, String description, boolean active, LocalDateTime createdAt, String imageUrl,
-                              Set<DishCategoryLinkEntity> links) {
+    public DishCategoryEntity(Long id, String name, String description, boolean active, LocalDateTime createdAt, LocalDateTime updateAt, String imageUrl, Set<DishCategoryLinkEntity> links) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.active = active;
         this.createdAt = createdAt;
+        this.updateAt = updateAt;
         this.imageUrl = imageUrl;
         this.links = links;
     }
@@ -83,6 +86,14 @@ public class DishCategoryEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
     }
 
     public String getImageUrl() {
