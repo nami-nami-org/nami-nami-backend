@@ -3,14 +3,23 @@ package com.nami.demo.api.local.mapper;
 import com.nami.demo.api.local.dto.request.CreateLocalRequestDto;
 import com.nami.demo.api.local.dto.request.UpdateLocalRequestDto;
 import com.nami.demo.api.local.dto.response.LocalResponseDto;
+import com.nami.demo.api.restaurant.dto.response.RestaurantResponseDto;
+import com.nami.demo.api.restaurant.mapper.RestaurantMapper;
 import com.nami.demo.model.entity.LocalEntity;
 import com.nami.demo.model.enums.RestaurantStatus;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Component
 public class LocalMapper {
+
+    private final RestaurantMapper restaurantMapper;
+
+    public LocalMapper(RestaurantMapper restaurantMapper) {
+        this.restaurantMapper = restaurantMapper;
+    }
 
     public LocalEntity toEntity(CreateLocalRequestDto dto) {
         LocalEntity entity = new LocalEntity();
@@ -41,9 +50,25 @@ public class LocalMapper {
     }
 
     public LocalResponseDto toResponseDto(LocalEntity entity) {
+
+        RestaurantResponseDto restaurantResponse = entity.getRestaurant() != null
+                ? restaurantMapper.toDto(entity.getRestaurant())
+                : null;
+
         return new LocalResponseDto(
                 entity.getId(),
                 entity.getLocalName(),
+                entity.getAverageDeliveryTime() != null ? entity.getAverageDeliveryTime() : 0,
+                entity.getAverageRating() != null ? entity.getAverageRating().intValue() : 0,
+                entity.isDeliveryAvailable(),
+                BigDecimal.valueOf(entity.getDeliveryCost()),
+                entity.getClosingTime(),
+                entity.getCreatedAt(),
+                entity.getOpeningTime(),
+                restaurantResponse,
+                entity.getUpdatedAt(),
+                entity.getPhone(),
+                entity.getAddress(),
                 entity.getTradeName(),
                 entity.getDescription(),
                 entity.getDirection()

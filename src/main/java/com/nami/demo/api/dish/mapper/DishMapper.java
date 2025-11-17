@@ -4,7 +4,6 @@ import com.nami.demo.api.dish.dto.request.CreateDishRequestDto;
 import com.nami.demo.api.dish.dto.response.DishResponseDto;
 import com.nami.demo.api.dishCategory.mapper.DishCategoryMapper;
 import com.nami.demo.model.entity.DishEntity;
-import com.nami.demo.model.entity.LocalEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -44,6 +43,8 @@ public class DishMapper {
                 entity.getImageUrl(),
                 entity.isAvailable(),
                 entity.getPrepTime(),
+                entity.getCreatedAt(),
+                entity.getLocal() != null ? entity.getLocal().getId() : null,
                 entity.getCategories()
                         .stream()
                         .map(link -> dishCategoryMapper.toResponseDto(link.getCategory()))

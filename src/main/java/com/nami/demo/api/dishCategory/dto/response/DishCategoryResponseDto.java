@@ -6,7 +6,5 @@ public record DishCategoryResponseDto(
         long id,
         String name,
         String description,
-        LocalDateTime createdAt,
-        boolean active
-) {
+        LocalDateTime createdAt) {
 }
