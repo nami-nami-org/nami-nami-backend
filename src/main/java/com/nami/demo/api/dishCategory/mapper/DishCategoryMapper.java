@@ -25,8 +25,7 @@ public class DishCategoryMapper {
                 entity.getId(),
                 entity.getName(),
                 entity.getDescription(),
-                entity.getCreatedAt(),
-                entity.isActive()
+                entity.getCreatedAt()
         );
     }
 }
