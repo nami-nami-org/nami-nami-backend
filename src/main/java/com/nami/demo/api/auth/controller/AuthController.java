@@ -123,6 +123,7 @@ public class AuthController {
 
     private void attachAuthCookie(HttpServletResponse response, String token) {
         ResponseCookie cookie = ResponseCookie.from("Nami_Auth_Session", token)
+                .domain("http://localhost:4321")
                 .httpOnly(true)
                 .secure(false)
                 .path("/")
