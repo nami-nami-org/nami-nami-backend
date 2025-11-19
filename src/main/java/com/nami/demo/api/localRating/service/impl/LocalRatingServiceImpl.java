@@ -73,8 +73,8 @@ public class LocalRatingServiceImpl implements LocalRatingService {
     }
 
     @Override
-    public LocalRatingResponseDto updateLocalRating(CreateLocalRatingRequestDto dto) {
-        LocalRatingEntity rating = localRatingRepository.findById(dto.localId())
+    public LocalRatingResponseDto updateLocalRating(CreateLocalRatingRequestDto dto, long localRatingId) {
+        LocalRatingEntity rating = localRatingRepository.findById(localRatingId)
                 .orElseThrow(() -> new RuntimeException("Valoración no encontrada"));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

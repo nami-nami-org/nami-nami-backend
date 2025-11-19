@@ -20,20 +20,17 @@ public class DishRatingEntity {
     @Column(nullable = false)
     private int rating;
 
-    private String comment;
-
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public DishRatingEntity() {
     }
 
-    public DishRatingEntity(Long id, UserEntity user, DishEntity dish, int rating, String comment, LocalDateTime createdAt) {
+    public DishRatingEntity(Long id, UserEntity user, DishEntity dish, int rating, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.dish = dish;
         this.rating = rating;
-        this.comment = comment;
         this.createdAt = createdAt;
     }
 
@@ -67,14 +64,6 @@ public class DishRatingEntity {
 
     public void setRating(int rating) {
         this.rating = rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     public LocalDateTime getCreatedAt() {

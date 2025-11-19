@@ -14,19 +14,18 @@ public class DishCategoryMapper {
         DishCategoryEntity entity = new DishCategoryEntity();
         entity.setName(dto.name());
         entity.setDescription(dto.description());
-        entity.setType(dto.type());
         entity.setActive(true);
         entity.setCreatedAt(LocalDateTime.now());
+        entity.setUpdateAt(LocalDateTime.now());
         return entity;
     }
 
     public DishCategoryResponseDto toResponseDto(DishCategoryEntity entity) {
         return new DishCategoryResponseDto(
+                entity.getId(),
                 entity.getName(),
                 entity.getDescription(),
-                entity.getType(),
-                entity.getCreatedAt(),
-                entity.isActive()
+                entity.getCreatedAt()
         );
     }
 }

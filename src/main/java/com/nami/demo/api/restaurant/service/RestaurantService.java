@@ -7,4 +7,6 @@ public interface RestaurantService {
     RestaurantResponseDto create(CreateRestaurantRequestDto restaurantRequestDto);
 
     RestaurantResponseDto findById(long id);
+    
+    // RestaurantEntity create(CreateRestaurantRequestDto restaurantRequestDto);
 }

@@ -7,6 +7,5 @@ public record LocalReviewResponseDto(
         String comment,
         Long localId,
         Long userId,
-        String userName,
         LocalDateTime createdAt
 ) {}

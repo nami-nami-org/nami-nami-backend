@@ -15,7 +15,7 @@ public interface LocalReviewService {
     List<LocalReviewResponseDto> findAllByLocal(Long localId);
 
 
-    LocalReviewResponseDto updateLocalReview(CreateLocalReviewRequestDto dto);
+    LocalReviewResponseDto updateLocalReview(CreateLocalReviewRequestDto dto, long idLocalReview);
 
     void deleteLocalReview(Long id);
 }

@@ -1,5 +1,6 @@
 package com.nami.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.nami.demo.model.enums.RestaurantStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -15,8 +16,9 @@ public class RestaurantEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private UserEntity user;
 
     @Column(name = "commercial_name", nullable = false, length = 200)
@@ -30,13 +32,13 @@ public class RestaurantEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RestaurantStatus status = RestaurantStatus.CERRADO;
+    private RestaurantStatus status = RestaurantStatus.ABIERTO;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<LocalEntity> locals = new HashSet<>();
 
     @Column(name = "average_rating")
-    private BigDecimal averageRating;
+    private BigDecimal averageRating = null;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RestaurantCategoryLinkEntity> categoryLinks = new HashSet<>();

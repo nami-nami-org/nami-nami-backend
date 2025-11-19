@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "valoraciones")
-public class ReviewEntity {
+@Table(name = "reseñas_restaurante")
+public class RestaurantReviewEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,19 +19,16 @@ public class ReviewEntity {
     @JoinColumn(name = "id_restaurante", nullable = false)
     private RestaurantEntity restaurant;
 
-    private Integer rating;
     private String comment;
     private LocalDateTime createdAt;
 
-    public ReviewEntity() {
+    public RestaurantReviewEntity() {
     }
 
-    public ReviewEntity(Long id, UserEntity user, RestaurantEntity restaurant, Integer rating, String comment,
-                        LocalDateTime createdAt) {
+    public RestaurantReviewEntity(Long id, UserEntity user, RestaurantEntity restaurant, String comment, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.restaurant = restaurant;
-        this.rating = rating;
         this.comment = comment;
         this.createdAt = createdAt;
     }
@@ -58,14 +55,6 @@ public class ReviewEntity {
 
     public void setRestaurant(RestaurantEntity restaurant) {
         this.restaurant = restaurant;
-    }
-
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
     }
 
     public String getComment() {

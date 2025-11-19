@@ -71,8 +71,8 @@ public class LocalReviewServiceImpl implements LocalReviewService {
     }
 
     @Override
-    public LocalReviewResponseDto updateLocalReview(CreateLocalReviewRequestDto dto) {
-        LocalReviewEntity review = localReviewRepository.findById(dto.localId())
+    public LocalReviewResponseDto updateLocalReview(CreateLocalReviewRequestDto dto, long idLocalReview) {
+        LocalReviewEntity review = localReviewRepository.findById(idLocalReview)
                 .orElseThrow(() -> new RuntimeException("Reseña no encontrada"));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

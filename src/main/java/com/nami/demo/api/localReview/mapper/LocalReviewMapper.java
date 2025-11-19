@@ -21,7 +21,6 @@ public class LocalReviewMapper {
                 entity.getComment(),
                 entity.getLocal().getId(),
                 entity.getUser().getId(),
-                entity.getUser().getUsername(),
                 entity.getCreatedAt()
         );
     }

@@ -11,4 +11,8 @@ public interface DishCategoryService {
     List<DishCategoryResponseDto> getAllCategories();
 
     DishCategoryResponseDto getCategoryById(Long categoryId);
+
+    DishCategoryResponseDto updateCategory(Long categoryId, DishCategoryRequestDto requestDto);
+
+    void deleteCategory(Long categoryId);
 }

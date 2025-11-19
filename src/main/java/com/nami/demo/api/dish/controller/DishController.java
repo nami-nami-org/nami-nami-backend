@@ -3,6 +3,7 @@ package com.nami.demo.api.dish.controller;
 import com.nami.demo.api.dish.dto.request.CreateDishRequestDto;
 import com.nami.demo.api.dish.dto.response.DishResponseDto;
 import com.nami.demo.api.dish.service.DishService;
+import com.nami.demo.api.dish.service.impl.DishServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

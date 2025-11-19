@@ -14,8 +14,7 @@ public interface LocalRatingService {
 
     List<LocalRatingResponseDto> findAllByLocal(Long localId);
 
-
-    LocalRatingResponseDto updateLocalRating(CreateLocalRatingRequestDto dto);
+    LocalRatingResponseDto updateLocalRating(CreateLocalRatingRequestDto dto, long localRatingId);
 
     void deleteLocalRating(Long id);
 }

@@ -1,7 +1,8 @@
 package com.nami.demo.model.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.nami.demo.model.enums.OrderStatus;
+
 import com.nami.demo.model.enums.UserRol;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -54,10 +55,16 @@ public class UserEntity implements UserDetails {
     private Set<UserRol> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<ReviewEntity> reviews;
+    @JsonManagedReference
+    private Set<RestaurantReviewEntity> reviews;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<OrderEntity> orders;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<RestaurantEntity> restaurants = new HashSet<>();
 
     // Antes del INSERT
     @PrePersist
@@ -88,7 +95,7 @@ public class UserEntity implements UserDetails {
 
     public UserEntity() {}
 
-    public UserEntity(Long id, String name, String email, String password, String phone, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRol> roles, Set<ReviewEntity> reviews, Set<OrderEntity> orders) {
+    public UserEntity(Long id, String name, String email, String password, String phone, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt, Set<UserRol> roles, Set<RestaurantReviewEntity> reviews, Set<OrderEntity> orders, Set<RestaurantEntity> restaurants) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -100,6 +107,7 @@ public class UserEntity implements UserDetails {
         this.roles = roles;
         this.reviews = reviews;
         this.orders = orders;
+        this.restaurants = restaurants;
     }
 
     public Long getId() {
@@ -126,6 +134,7 @@ public class UserEntity implements UserDetails {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -174,11 +183,11 @@ public class UserEntity implements UserDetails {
         this.roles = roles;
     }
 
-    public Set<ReviewEntity> getReviews() {
+    public Set<RestaurantReviewEntity> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<ReviewEntity> reviews) {
+    public void setReviews(Set<RestaurantReviewEntity> reviews) {
         this.reviews = reviews;
     }
 
@@ -188,5 +197,13 @@ public class UserEntity implements UserDetails {
 
     public void setOrders(Set<OrderEntity> orders) {
         this.orders = orders;
+    }
+
+    public Set<RestaurantEntity> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(Set<RestaurantEntity> restaurants) {
+        this.restaurants = restaurants;
     }
 }
