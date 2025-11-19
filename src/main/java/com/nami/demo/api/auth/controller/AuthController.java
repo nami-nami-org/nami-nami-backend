@@ -115,15 +115,11 @@ public class AuthController {
     }
 
     private Cookie createAuthCookie(String token) {
-        boolean isProd = "production".equalsIgnoreCase(ENVIROMENT);
-        System.out.println(ENVIROMENT);
-
         Cookie cookie = new Cookie("Nami_Auth_Session", token);
-        cookie.setMaxAge(1000 * 60 * 60 * 24);
-        cookie.setDomain(isProd ? "nami-nami.vercel.app" : "localhost");
-
-        cookie.setSecure(false);
-        cookie.setAttribute("SameSite", "Lax");
+        cookie.setMaxAge(60 * 60 * 24); // 1 día en segundos
+        // NO setDomain en dev (dejar que el host de la respuesta sea el dominio)
+        cookie.setSecure(false);       // dev sin HTTPS
+        cookie.setAttribute("SameSite", "Lax"); // para que el navegador la acepte en HTTP
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         return cookie;

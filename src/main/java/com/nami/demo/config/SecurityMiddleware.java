@@ -44,9 +44,11 @@ public class SecurityMiddleware {
                         .requestMatchers(
                                 "/auth/**",
                                 "/docs/**",
-                                "/static/**"
+                                "/static/**",
+                                "/dish/**",
+                                "/local/**"
                         ).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/dish").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/dish", "/local").permitAll()
                         //.requestMatchers(HttpMethod.GET, "/dish/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -63,7 +65,7 @@ public class SecurityMiddleware {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4321", "http://localhost:3000"));
+        config.setAllowedOrigins(List.of("http://localhost:4321", "http://localhost:3000", "https://nami.luigemp.workers.dev"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of("Authorization", "Set-Cookie"));
