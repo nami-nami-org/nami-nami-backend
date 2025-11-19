@@ -7,6 +7,7 @@ import com.nami.demo.api.auth.service.AuthService;
 import com.nami.demo.api.user.dto.response.UserResponseDto;
 import com.nami.demo.api.user.service.UserService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -126,19 +127,20 @@ public class AuthController {
                 .secure(false)
                 .path("/")
                 .sameSite("Lax")
-                .maxAge(60 * 60 * 24)         // 1 día
+                .maxAge(60 * 60 * 24)
                 .build();
 
         response.addHeader("Set-Cookie", cookie.toString());
     }
 
     private String extractTokenFromCookies(HttpServletRequest request) {
-        if (request.getCookies() == null) return null;
+        if (request == null || request.getCookies() == null) return null;
 
-        return java.util.Arrays.stream(request.getCookies())
-                .filter(c -> "Nami_Auth_Session".equals(c.getName()))
-                .map(javax.servlet.http.Cookie::getValue)
-                .findFirst()
-                .orElse(null);
+        for (Cookie c : request.getCookies()) {
+            if ("Nami_Auth_Session".equals(c.getName())) {
+                return c.getValue();
+            }
+        }
+        return null;
     }
 }
