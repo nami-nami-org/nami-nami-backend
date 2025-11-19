@@ -119,12 +119,13 @@ public class AuthController {
         System.out.println(ENVIROMENT);
 
         Cookie cookie = new Cookie("Nami_Auth_Session", token);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(1000 * 60 * 60 * 24); //1  Día
-        cookie.setSecure(isProd);
+        cookie.setMaxAge(1000 * 60 * 60 * 24);
         cookie.setDomain(isProd ? "nami-nami.vercel.app" : "localhost");
-        cookie.setAttribute("SameSite", isProd ? "None" : "Lax");
+
+        cookie.setSecure(false);
+        cookie.setAttribute("SameSite", "Lax");
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
         return cookie;
     }
 
