@@ -6,22 +6,23 @@ import com.nami.demo.api.auth.dto.request.RegisterRequestDto;
 import com.nami.demo.api.auth.service.AuthService;
 import com.nami.demo.api.user.dto.response.UserResponseDto;
 import com.nami.demo.api.user.service.UserService;
-import jakarta.servlet.http.Cookie;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
     private final AuthService authService;
 
     @Value("${nami.env}")
@@ -48,7 +49,9 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequestDto request, HttpServletResponse response) {
         try {
             LoginResponseDto user = authService.login(request);
-            response.addCookie(createAuthCookie(user.getToken()));
+
+            attachAuthCookie(response, user.getToken());
+
             return ResponseEntity.ok(user.getUser());
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
@@ -65,6 +68,7 @@ public class AuthController {
     ) {
         try {
             String token = extractTokenFromCookies(request);
+
             if (token == null && authHeader != null && authHeader.startsWith("Bearer ")) {
                 token = authHeader.substring(7);
             }
@@ -88,24 +92,26 @@ public class AuthController {
         }
     }
 
-
     @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
         try {
             String oldToken = extractTokenFromCookies(request);
-            if (oldToken == null)
+            if (oldToken == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                         "message", "No se encontró token en la cookie",
                         "statusCode", HttpStatus.UNAUTHORIZED.value()
                 ));
+            }
 
             String newToken = authService.refreshToken(oldToken);
-            response.addCookie(createAuthCookie(newToken));
+
+            attachAuthCookie(response, newToken);
 
             return ResponseEntity.ok(Map.of(
                     "message", "Token actualizado exitosamente",
                     "token", newToken
             ));
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "message", e.getMessage(),
@@ -114,23 +120,25 @@ public class AuthController {
         }
     }
 
-    private Cookie createAuthCookie(String token) {
-        Cookie cookie = new Cookie("Nami_Auth_Session", token);
-        cookie.setMaxAge(60 * 60 * 24); // 1 día en segundos
-        // NO setDomain en dev (dejar que el host de la respuesta sea el dominio)
-        cookie.setSecure(false);       // dev sin HTTPS
-        cookie.setAttribute("SameSite", "Lax"); // para que el navegador la acepte en HTTP
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        return cookie;
+    private void attachAuthCookie(HttpServletResponse response, String token) {
+        ResponseCookie cookie = ResponseCookie.from("Nami_Auth_Session", token)
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .sameSite("Lax")
+                .maxAge(60 * 60 * 24)         // 1 día
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
     }
 
     private String extractTokenFromCookies(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) return null;
-        for (Cookie cookie : cookies)
-            if ("Nami_Auth_Session".equals(cookie.getName()))
-                return cookie.getValue();
-        return null;
+        if (request.getCookies() == null) return null;
+
+        return java.util.Arrays.stream(request.getCookies())
+                .filter(c -> "Nami_Auth_Session".equals(c.getName()))
+                .map(javax.servlet.http.Cookie::getValue)
+                .findFirst()
+                .orElse(null);
     }
 }
