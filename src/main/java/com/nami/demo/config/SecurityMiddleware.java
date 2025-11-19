@@ -57,14 +57,15 @@ public class SecurityMiddleware {
         return http.build();
     }
 
-    @Bean
+   @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("*")); // TODOS los orígenes
-        config.setAllowedMethods(List.of("*"));        // TODOS los métodos
-        config.setAllowedHeaders(List.of("*"));        // TODOS los headers
-        config.setExposedHeaders(List.of("*"));        // TODOS los headers expuestos
-        config.setAllowCredentials(true);             // Permite cookies si se envían
+        config.setAllowedOriginPatterns(List.of("*")); // cualquier origen
+        config.setAllowedMethods(List.of("*"));        // cualquier método
+        config.setAllowedHeaders(List.of("*"));        // cualquier header
+        config.setExposedHeaders(List.of("*"));        // expone todos los headers
+        config.setAllowCredentials(true);             // cookies habilitadas
+        config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
