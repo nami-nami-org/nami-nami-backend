@@ -67,6 +67,7 @@ public class LocalMapper {
                 entity.getOpeningTime(),
                 restaurantResponse,
                 entity.getUpdatedAt(),
+                entity.getImageUrls(),
                 entity.getPhone(),
                 entity.getAddress(),
                 entity.getTradeName(),

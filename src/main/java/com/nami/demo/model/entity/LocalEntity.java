@@ -109,6 +109,10 @@ public class LocalEntity {
         this.direction = direction;
     }
 
+    public Set<String> getImageUrls() {
+        return imageUrls;
+    }
+
     public Long getId() {
         return id;
     }

@@ -17,7 +17,7 @@ public record LocalResponseDto(
         LocalDateTime openingTime,
         RestaurantResponseDto restaurantResponseDto,
         LocalDateTime updateAt,
-        String phone,
+        java.util.Set<String> imageUrls, String phone,
         String address,
         String tradeName,
         String description,
