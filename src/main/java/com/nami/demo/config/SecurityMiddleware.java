@@ -45,9 +45,7 @@ public class SecurityMiddleware {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/auth/**", "/docs/**", "/static/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/dish/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             )
             .exceptionHandling(ex -> ex
                 .accessDeniedHandler(authAccessDeniedHandler)
@@ -62,19 +60,11 @@ public class SecurityMiddleware {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of(
-            "http://localhost:4321",
-            "http://localhost:3000",
-            "https://nami.luigemp.workers.dev",
-            "https://nami-nami.vercel.app",
-            "https://*.workers.dev",
-            "https://*.vercel.app"
-        ));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setExposedHeaders(List.of("Authorization", "Set-Cookie"));
-        config.setAllowCredentials(true);
-        config.setMaxAge(3600L);
+        config.setAllowedOriginPatterns(List.of("*")); // TODOS los orígenes
+        config.setAllowedMethods(List.of("*"));        // TODOS los métodos
+        config.setAllowedHeaders(List.of("*"));        // TODOS los headers
+        config.setExposedHeaders(List.of("*"));        // TODOS los headers expuestos
+        config.setAllowCredentials(true);             // Permite cookies si se envían
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
